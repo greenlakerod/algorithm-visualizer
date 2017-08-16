@@ -1,0 +1,31 @@
+{
+  "name": "algorithm-visualizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greenlakerod/algorithm-visualizer.git"
+  },
+  "author": "greenlakerod",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greenlakerod/algorithm-visualizer/issues"
+  },
+  "homepage": "https://github.com/greenlakerod/algorithm-visualizer#readme",
+  "dependencies": {
+    "async": "^2.5.0",
+    "chalk": "^2.1.0",
+    "commander": "^2.11.0",
+    "core-js": "^2.5.0",
+    "csv": "^1.1.1",
+    "inquirer": "^3.2.1",
+    "sendgrid": "^5.2.2"
+  },
+  "devDependencies": {
+    "webpack": "^3.5.4"
+  }
+}
