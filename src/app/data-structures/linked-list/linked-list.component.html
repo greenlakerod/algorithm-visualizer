@@ -1,0 +1,18 @@
+<h3>Linked List</h3>
+<div>
+    <label>Value:</label> <input #node />
+    <button (click)="add(node.value); node.value='';">Add</button>
+    <button (click)="addLast(node.value); node.value='';">Add Last</button>
+    <label>Index:</label> <input #index />
+    <button (click)="add(node.value, index.value); node.value=''; index.value='';">Insert</button>
+</div>
+<div>
+    <button (click)="reverse();">Reverse</button>
+</div>
+<div class="grid grid-pad">
+    <div *ngFor="let node of list.nodes" class="col-">
+        <div class="module hero">
+            <h4>{{node.value}}</h4>
+        </div>
+    </div>
+</div>
