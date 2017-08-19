@@ -12,7 +12,11 @@ export class ArrayStack<T> extends Stack<T> {
             let newLength: number = this._size === 0 ? 4 : this._size * 2;
             let newArray = new Array<T>(newLength);
 
-            this._items = this._items.concat(newArray);
+            this._items.forEach((v, index) => {
+                newArray[index] = v;
+            });
+
+            this._items = newArray;
         }
 
         this._items[this._size++] = item;
