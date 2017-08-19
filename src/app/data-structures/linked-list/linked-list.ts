@@ -19,8 +19,7 @@ export interface ILinkedList {
     copyTo: (array: Array<any>, arrayIndex?: number) => void;
     reverse: () => void;
 
-    nodes: Array<ILinkedListNode>;
-    //nodes: () => IterableIterator<ILinkedListNode>;
+    nodes: Array<ILinkedListNode>;//nodes: () => IterableIterator<ILinkedListNode>;
 }
 
 export class LinkedList<T> implements ILinkedList {
@@ -47,7 +46,6 @@ export class LinkedList<T> implements ILinkedList {
             }
         }
     }
-
     public addLast(v: T | LinkedListNode<T>): void {
         if (v !== undefined && v !== null) {
             if (typeof v === "object") {
@@ -64,7 +62,6 @@ export class LinkedList<T> implements ILinkedList {
             }
         }
     }
-
     public add(v: T, index?: number): void {
         if (this._count === 0 || index === undefined || index <= 0) {
             this.addFirst(v);
@@ -85,7 +82,6 @@ export class LinkedList<T> implements ILinkedList {
             this._count++;
         }
     }
-
     public removeFirst(): boolean {
         if (this._count > 0) {
             this.head = this.head.next;
@@ -100,7 +96,6 @@ export class LinkedList<T> implements ILinkedList {
 
         return false;
     }
-
     public removeLast(): boolean {
         if (this._count > 0) {
             if (this._count === 1) {
@@ -122,7 +117,6 @@ export class LinkedList<T> implements ILinkedList {
 
         return false;
     }
-
     public remove(v: T): boolean {
         let previous: LinkedListNode<T> = null;
         let current: LinkedListNode<T> = this.head;
@@ -150,7 +144,6 @@ export class LinkedList<T> implements ILinkedList {
 
         return false;
     }
-
     public removeAt(index: number): boolean {
         if (this._count === 0 || index === undefined || index < 0 || index >= this._count) {
             throw "Invalid index";
@@ -174,7 +167,6 @@ export class LinkedList<T> implements ILinkedList {
 
         return true;
     }
-
     public contains(v: T): boolean {
         let current: LinkedListNode<T> = this.head;
         while (current != null) {
@@ -187,7 +179,6 @@ export class LinkedList<T> implements ILinkedList {
 
         return false;
     }
-
     public copyTo(array: Array<T>, arrayIndex: number = 0): void {
         let current: LinkedListNode<T> = this.head;
         while (current != null) {
@@ -195,13 +186,11 @@ export class LinkedList<T> implements ILinkedList {
             current = current.next;
         }
     }
-
     public clear(): void {
         this.head = null;
         this.tail = null;
         this._count = 0;
     }
-
     public reverse(): void {
         if (this._count > 0) {
             let h: LinkedListNode<T> = this.head;
@@ -217,7 +206,6 @@ export class LinkedList<T> implements ILinkedList {
             this.tail = h;
         }
     }
-
     public get nodes(): Array<LinkedListNode<T>> {
         let a: Array<LinkedListNode<T>> = [];
 
