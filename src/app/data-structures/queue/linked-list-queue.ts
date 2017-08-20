@@ -15,6 +15,15 @@ export class LinkedListQueue<T> extends Queue<T> {
 
         return a;
     }
+    public get slots(): Array<boolean> {
+        let a: Array<boolean> = [];
+
+        for (let i = 0; i < this.count; i++) {
+            a.push(true);
+        }
+
+        return a;
+    }
 
     public enqueue(item: T): void {
         this._list.addLast(item);

@@ -5,7 +5,7 @@ import {LinkedListQueue} from "./linked-list-queue";
 
 @Component({
     selector: "queue",
-    styleUrls: ["./queue.component.css"],
+    styleUrls: ["../../data-structure.css", "./queue.component.css"],
     templateUrl: "./queue.component.html"
 })
 export class QueueComponent implements OnInit {

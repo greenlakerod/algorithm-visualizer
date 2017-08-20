@@ -5,7 +5,7 @@ import {LinkedListStack} from "./linked-list-stack";
 
 @Component({
     selector: "stack",
-    styleUrls: ["./stack.component.css"],
+    styleUrls: ["../../data-structure.css", "./stack.component.css"],
     templateUrl: "./stack.component.html"
 })
 export class StackComponent implements OnInit {

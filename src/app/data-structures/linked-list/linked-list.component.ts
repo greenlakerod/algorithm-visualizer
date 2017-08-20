@@ -5,22 +5,13 @@ import {ILinkedListNode} from "./linked-list-node";
 
 @Component({
     selector: "linked-list",
-    styleUrls: ["./linked-list.component.css"],
+    styleUrls: ["../../data-structure.css", "./linked-list.component.css"],
     templateUrl: "./linked-list.component.html"
 })
 export class LinkedListComponent implements OnInit {
-    //private _nodes: Array<ILinkedListNode> = [];
-    // public get nodes(): Array<ILinkedListNode> {
-    //     this._nodes = [];
-    //     this._list.copyTo(this._nodes);
-    //     return this._nodes;
-    // }
-
     private _list: ILinkedList;
     public get list(): ILinkedList { return this._list; }
-
-    //public get head(): ILinkedListNode { return this._list.head; }
-    //public get tail(): ILinkedListNode { return this._list.tail; }
+    
     public get count(): number { return this._list.count; }
 
     public ngOnInit(): void {

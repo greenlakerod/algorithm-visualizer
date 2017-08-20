@@ -2,16 +2,38 @@
     <div class="page-header">
         <h1>Queue</h1>
     </div>
-    <div>
-        <label>Value:</label> <input #item />
-        <button (click)="enqueue(item.value); item.value='';">Enqueue</button>
-        <button (click)="dequeue();">Dequeue</button>
-        <button (click)="clear();">Clear</button>
-    </div>
+    <form class="form-inline">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Type:</label>
+                <select class="form-control" #type>
+                    <option value="linkedlist" selected>Linked List</option>
+                    <option value="array">Array</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" #type>
+                    <option value="number" selected>Number</option>
+                    <option value="string">String</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Value:</label>
+                <input class="form-control" #item />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default-outline" (click)="enqueue(item.value); item.value='';">Enqueue</button>
+                <button type="button" class="btn btn-default-outline" (click)="dequeue();">Dequeue</button>
+                <button type="button" class="btn btn-default-outline" (click)="clear();">Clear</button>
+            </div>
+        </div>
+    </form>
     <div class="grid grid-pad">
-        <div *ngFor="let item of queue.items" class="col-">
-            <div class="module hero">
-                <h4>{{item}}</h4>
+        <div *ngFor="let slot of queue.slots; let i=index;" class="col-">
+            <div class="queue-node">
+                <h4>{{items[i]}}</h4>
             </div>
         </div>
     </div>

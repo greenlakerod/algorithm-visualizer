@@ -2,16 +2,38 @@
     <div class="page-header">
         <h1>Stack</h1>
     </div>
-    <div>
-        <label>Value:</label> <input #item />
-        <button (click)="push(item.value); item.value='';">Push</button>
-        <button (click)="pop();">Pop</button>
-        <button (click)="clear();">Clear</button>
-    </div>
+    <form class="form-inline">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Type:</label>
+                <select class="form-control" #type>
+                    <option value="linkedlist" selected>Linked List</option>
+                    <option value="array">Array</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" #type>
+                    <option value="number" selected>Number</option>
+                    <option value="string">String</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Value:</label>
+                <input class="form-control" #item />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default-outline" (click)="push(item.value); item.value='';">Push</button>
+                <button type="button" class="btn btn-default-outline" (click)="pop();">Pop</button>
+                <button type="button" class="btn btn-default-outline" (click)="clear();">Clear</button>
+            </div>
+        </div>
+    </form>
     <div class="grid grid-pad">
         <div *ngFor="let item of stack.items">
             <div class="row-">
-                <div class="module hero">
+                <div class="node">
                     <h4>{{item}}</h4>
                 </div>
             </div>
