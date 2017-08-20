@@ -1,17 +1,19 @@
-<div class="page-header">
-    <h1>Stack</h1>
-</div>
-<div>
-    <label>Value:</label> <input #item />
-    <button (click)="push(item.value); item.value='';">Push</button>
-    <button (click)="pop();">Pop</button>
-    <button (click)="clear();">Clear</button>
-</div>
-<div class="grid grid-pad">
-    <div *ngFor="let item of stack.items">
-        <div class="row-">
-            <div class="module hero">
-                <h4>{{item}}</h4>
+<div class="component">
+    <div class="page-header">
+        <h1>Stack</h1>
+    </div>
+    <div>
+        <label>Value:</label> <input #item />
+        <button (click)="push(item.value); item.value='';">Push</button>
+        <button (click)="pop();">Pop</button>
+        <button (click)="clear();">Clear</button>
+    </div>
+    <div class="grid grid-pad">
+        <div *ngFor="let item of stack.items">
+            <div class="row-">
+                <div class="module hero">
+                    <h4>{{item}}</h4>
+                </div>
             </div>
         </div>
     </div>

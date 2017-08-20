@@ -1,27 +1,29 @@
-<div class="page-header">
-    <h1>Linked List</h1>
-</div>
-<div>
-    <label>Value:</label> <input #node />
-    <button (click)="add(node.value); node.value='';">Add</button>
-    <button (click)="addLast(node.value); node.value='';">Add Last</button>
-    <button (click)="remove(node.value); node.value='';">Remove</button>
-</div>
-<div>
-    <label>Index:</label> <input #index />
-    <button (click)="add(node.value, index.value); node.value=''; index.value='';">Insert</button>
-    <button (click)="removeAt(index.value); node.value=''; index.value='';">Remove at Index</button>
-</div>
-<div>
-    <button (click)="removeFirst(); node.value=''; index.value='';">Remove First</button>
-    <button (click)="removeLast(); node.value=''; index.value='';">Remove Last</button>
-    <button (click)="clear(); node.value=''; index.value='';">Clear</button>
-    <button (click)="reverse(); node.value=''; index.value='';">Reverse</button>
-</div>
-<div class="grid grid-pad">
-    <div *ngFor="let node of list.nodes" class="col-">
-        <div class="module hero">
-            <h4>{{node.value}}</h4>
+<div class="component">
+    <div class="page-header">
+        <h1>Linked List</h1>
+    </div>
+    <div>
+        <label>Value:</label> <input #node />
+        <button (click)="add(node.value); node.value='';">Add</button>
+        <button (click)="addLast(node.value); node.value='';">Add Last</button>
+        <button (click)="remove(node.value); node.value='';">Remove</button>
+    </div>
+    <div>
+        <label>Index:</label> <input #index />
+        <button (click)="add(node.value, index.value); node.value=''; index.value='';">Insert</button>
+        <button (click)="removeAt(index.value); node.value=''; index.value='';">Remove at Index</button>
+    </div>
+    <div>
+        <button (click)="removeFirst(); node.value=''; index.value='';">Remove First</button>
+        <button (click)="removeLast(); node.value=''; index.value='';">Remove Last</button>
+        <button (click)="clear(); node.value=''; index.value='';">Clear</button>
+        <button (click)="reverse(); node.value=''; index.value='';">Reverse</button>
+    </div>
+    <div class="grid grid-pad">
+        <div *ngFor="let node of list.nodes" class="col-">
+            <div class="module hero">
+                <h4>{{node.value}}</h4>
+            </div>
         </div>
     </div>
 </div>
