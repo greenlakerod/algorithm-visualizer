@@ -9,6 +9,9 @@ import {LinkedListStack} from "./linked-list-stack";
     templateUrl: "./stack.component.html"
 })
 export class StackComponent implements OnInit {
+    public poppedItem: any;
+    public peekedItem: any;
+
     private _stack: IStack;
     public get stack(): IStack { return this._stack; }
 
@@ -18,10 +21,28 @@ export class StackComponent implements OnInit {
         this.setType();
     }
 
-    public push(item: any): void {}
-    public pop(): any {}
-    public peek(): any {}
-    public clear(): void {}
+    public push(item: any): void {
+        if (item !== undefined && item !== "") {
+            this._stack.push(item);
+        }
+    }
+    public pop(): any {
+        try {
+            this.poppedItem = this._stack.pop();
+        } catch (error) {
+            alert(error.message || error);
+        }
+    }
+    public peek(): any {
+        try {
+            this.peekedItem = this._stack.peek();
+        } catch (error) {
+            alert(error.message || error);
+        }       
+    }
+    public clear(): void {
+        this._stack.clear();
+    }
 
     public setType(stackType: string = "linkedlist", valueType: string = "number"): void {
         if (this._stack) {

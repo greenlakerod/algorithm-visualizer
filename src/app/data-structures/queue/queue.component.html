@@ -1,0 +1,16 @@
+<div class="page-header">
+    <h1>Queue</h1>
+</div>
+<div>
+    <label>Value:</label> <input #item />
+    <button (click)="enqueue(item.value); item.value='';">Enqueue</button>
+    <button (click)="dequeue();">Dequeue</button>
+    <button (click)="clear();">Clear</button>
+</div>
+<div class="grid grid-pad">
+    <div *ngFor="let item of queue.items" class="col-">
+        <div class="module hero">
+            <h4>{{item}}</h4>
+        </div>
+    </div>
+</div>

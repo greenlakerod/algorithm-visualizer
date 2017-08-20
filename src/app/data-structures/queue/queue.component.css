@@ -1,13 +1,11 @@
-[class*='row-'] {
+[class*='col-'] {
     float: left;
     padding-right: 20px;
     padding-bottom: 20px;
-    clear: both;
 }
 
-[class*='row-']:last-of-type {
+[class*='col-']:last-of-type {
     padding-right: 0;
-    padding-bottom: 0;
 }
 
 a {
@@ -35,7 +33,7 @@ h4 {
     margin: 0;
 }
 
-.row-1-4 {
+.col-1-4 {
     width: 25%;
 }
 
@@ -59,7 +57,7 @@ h4 {
     padding: 10px 0;
 }
 
-.grid-pad>[class*='row-']:last-of-type {
+.grid-pad>[class*='col-']:last-of-type {
     padding-right: 20px;
 }
 

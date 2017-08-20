@@ -2,16 +2,24 @@ import {Component} from "@angular/core";
 
 @Component({
     selector: "my-app",
-    template: `
-        <h1>{{title}}</h1>
-        <nav>
-            <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-            <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
-        </nav>
-        <router-outlet></router-outlet>
-    `,
-    styleUrls: ["./app.component.css"]
+    styleUrls: ["./app.component.css"],
+    templateUrl: "./app.component.html"
 })
 export class AppComponent {
-    title: string = "Tour of Heroes";
+    public title: string = "Algorithms & Data Structures";
+    public activeRoute: string = "/linked-list";
+
+    public routes: Array<{ route: string; label: string; }> = [
+        { route: "/linked-list", label: "Linked List" }, 
+        { route: "/queue", label: "Queue" }, 
+        { route: "/stack", label: "Stack" }
+    ];
+
+    public clickNav(route: string): void {
+        this.activeRoute = route;
+    }
+
+    public isActiveRoute(route: string): boolean {
+        return route === this.activeRoute;
+    }
 }
