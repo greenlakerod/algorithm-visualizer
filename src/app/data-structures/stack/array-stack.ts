@@ -15,21 +15,32 @@ export class ArrayStack<T> extends Stack<T> {
             let newArray = new Array<T>(newLength);
             this._slots = Array<boolean>(newLength).fill(false);
 
-            this._items.forEach((v, index) => {
-                newArray[index] = v;
-                this._slots[index] = true;
-            });
+            if (this._size === 0) {
+                this._items[0] = item;
+            }
+
+            for (let i = 0; i < this._items.length; i++) {
+                newArray[i] = this._items[i];
+                this._slots[i] = true;
+            }
+            // this._items.forEach((v, index) => {
+            //     newArray[index] = v;
+            //     this._slots[index] = true;
+            // });
 
             this._items = newArray;
         }
 
+        this._slots[this._size] = true;
         this._items[this._size++] = item;
+        
     }
     public pop(): T {
         if (this._size === 0) {
             throw "Stack is empty";
         }
 
+        this._slots[this._size - 1] = false;
         return this._items[--(this._size)];
     }
     public peek(): T {
@@ -41,5 +52,7 @@ export class ArrayStack<T> extends Stack<T> {
     }
     public clear(): void {
         this._size = 0;
+        this._slots.splice(0);
+        this._items.splice(0);
     }
 }

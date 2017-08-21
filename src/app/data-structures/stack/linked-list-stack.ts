@@ -19,20 +19,18 @@ export class LinkedListStack<T> extends Stack<T> {
     }
 
     public push(item: T): void {
-        if (this._list.count >= this._slots.length) {
-            this._slots.push(true);
-        }
+        this._slots.push(true);
         this._list.addFirst(item);
     }
     public pop(): T {
         if (this.size === 0) {
-            throw "Stack is empty";
+            throw "Stack is empty"; 
         }
-
-        this._slots[this._slots.length - 1] = false;
 
         let value: T = this._list.head.value;
         this._list.removeFirst();
+
+        this._slots.splice(this._slots.length - 1);
 
         return value;
     }
@@ -45,5 +43,6 @@ export class LinkedListStack<T> extends Stack<T> {
     }
     public clear(): void {
         this._list.clear();
+        this._slots.splice(0);
     }
 }

@@ -1,7 +1,7 @@
 [class*='row-'] {
     float: left;
-    padding-right: 20px;
-    padding-bottom: 20px;
+    /* padding-right: 20px;
+    padding-bottom: 20px; */
     margin-bottom: 10px;
     clear: both;
 }
@@ -11,21 +11,55 @@
     margin-bottom: 0px;
 }
 
+.row-.array .stack-node {
+    border-radius: 0px 0px 0px 0px;
+    border-width: 2px 2px 0px 2px;
+}
+
+.stack-node-container:last-of-type .row-.array .stack-node {
+    border-width: 2px 2px 2px 2px;
+}
+
 [class*='row-']:last-of-type {
     padding-right: 0;
     padding-bottom: 0;
 }
 
 .stack-node {
-    padding: 20px;
+    /* padding-right: 10px;
+    padding-left: 10px;
     text-align: center;
     color: #000;
-    height: 80px;
-    width: 80px;
+    height: 40px;
+    width: 40px;
     background-color: #fff;
     border-style: solid;
     border-color: #000;
     border-radius: 2px 2px 2px 2px;
+    border-width: 2px 2px 2px 2px; */
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: center;
+    color: #000;
+    max-height: 40px;
+    min-width: 40px;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #000;
+    border-radius: 2px 2px 2px 2px;
+    border-width: 2px 2px 2px 2px;
+}
+
+.col-.array {
+    padding-right: 0px;
+}
+
+.col-.array .stack-node {
+    border-radius: 0px 0px 0px 0px;
+    border-width: 2px 0px 2px 2px;
+}
+
+.col-.array:last-of-type .stack-node {
     border-width: 2px 2px 2px 2px;
 }
 

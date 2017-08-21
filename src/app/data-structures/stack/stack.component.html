@@ -31,17 +31,22 @@
         </div>
     </form>
     <div class="grid grid-pad">
-        <div *ngFor="let slot of stack.slots; let i=index;">
+        <!-- <div class="stack-node-container" *ngFor="let slot of slots; let i=index;">
             <div class="row-" [class.array]="stackType === 'array'">
-                <div class="stack-node">
-                    <h4>{{stack.items[i]}}</h4>
+                <div class="stack-node" *ngIf="slot === true; else shownothing">
+                    <h4>{{items[i]}}</h4>
                 </div>
+            </div>
+        </div> -->
+        <div *ngFor="let slot of stack.slots; let i=index;" class="col-" [class.array]="stackType === 'array'">
+            <div class="stack-node" *ngIf="slot === true; else shownothing">
+                <h4>{{stack.items[i]}}</h4>
             </div>
         </div>
     </div>
 </div>
 <ng-template #shownothing>
-    <div class="stack-node" *ngIf="slot === true; else shownothing">
+    <div class="stack-node">
         <h4>&nbsp;</h4>
     </div>
 </ng-template>

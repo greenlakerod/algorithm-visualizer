@@ -1,9 +1,10 @@
 .queue-node {
-    padding: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
     text-align: center;
     color: #000;
-    max-height: 80px;
-    min-width: 80px;
+    max-height: 40px;
+    min-width: 40px;
     background-color: #fff;
     border-style: solid;
     border-color: #000;
@@ -13,6 +14,15 @@
 
 .col-.array {
     padding-right: 0px;
+}
+
+.col-.array .queue-node {
+    border-radius: 0px 0px 0px 0px;
+    border-width: 2px 0px 2px 2px;
+}
+
+.col-.array:last-of-type .queue-node {
+    border-width: 2px 2px 2px 2px;
 }
 
 .queue-node:hover {

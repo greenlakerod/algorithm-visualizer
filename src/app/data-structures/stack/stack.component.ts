@@ -20,6 +20,10 @@ export class StackComponent implements OnInit {
     public get stackType(): string { return this._stackType; }
     public get dataType(): string { return this._dataType; }
 
+    //reverse these just for the vertical visual effect
+    // public get items(): Array<any> { return this._stackType === "array" ? this._stack.items.reverse() : this._stack.items; }
+    // public get slots(): Array<boolean> { return this._stackType === "array" ? this._stack.slots.reverse() : this._stack.slots; }
+
     public ngOnInit(): void {
         this.setType();
     }
