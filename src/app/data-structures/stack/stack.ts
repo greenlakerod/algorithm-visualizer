@@ -1,5 +1,6 @@
 export interface IStack {
     items: Array<any>;
+    slots: Array<boolean>;
     size: number;
     push: (item: any) => void;
     pop: () => any;
@@ -9,6 +10,7 @@ export interface IStack {
 
 export abstract class Stack<T> implements IStack {
     public abstract items: Array<T>;
+    public abstract slots: Array<boolean>;
     public abstract size: number;
     public abstract push(item: T): void;
     public abstract pop(): T;

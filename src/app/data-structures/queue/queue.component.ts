@@ -11,11 +11,14 @@ import {LinkedListQueue} from "./linked-list-queue";
 export class QueueComponent implements OnInit {
     public dequeuedItem: any;
     public peekedItem: any;
+    private _queueType = "linkedlist";
+    private _dataType = "number";
 
     private _queue: IQueue;
     public get queue(): IQueue { return this._queue; }
-
     public get count(): number { return this._queue.count; }
+    public get queueType(): string { return this._queueType; }
+    public get dataType(): string { return this._dataType; }
 
     public ngOnInit(): void {
         this.setType();
@@ -44,17 +47,27 @@ export class QueueComponent implements OnInit {
         this._queue.clear();
     }
 
-    public setType(stackType: string = "linkedlist", valueType: string = "number"): void {
+    public onQueueTypeChange(type: string): void {
+        this._queueType = type;
+        this.setType();
+    }
+
+    public onDataTypeChange(type: string): void {
+        this._dataType = type;
+        this.setType();
+    }
+
+    public setType(): void {
         if (this._queue) {
             this._queue.clear();
         }
 
-        switch (valueType) {
+        switch (this._dataType) {
             case "string":
-                this._queue = stackType === "linkedlist" ? new LinkedListQueue<string>() : new ArrayQueue<string>();
+                this._queue = this._queueType === "linkedlist" ? new LinkedListQueue<string>() : new ArrayQueue<string>();
                 break;
             case "number":
-                this._queue = stackType === "linkedlist" ? new LinkedListQueue<number>() : new ArrayQueue<number>();
+                this._queue = this._queueType === "linkedlist" ? new LinkedListQueue<number>() : new ArrayQueue<number>();
                 break;
             default:
                 break;

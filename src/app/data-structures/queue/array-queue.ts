@@ -41,7 +41,7 @@ export class ArrayQueue<T> extends Queue<T> {
                     }
                 } else {
                     // copy the _items[head].._items[tail] -> newArray[0]..newArray[N]
-                    for (let i = this._head; i < this._tail; i++) {
+                    for (let i = this._head; i <= this._tail; i++) {
                         this._slots[targetIndex] = true;
                         newArray[targetIndex++] = this._items[i];
                     }
@@ -101,5 +101,8 @@ export class ArrayQueue<T> extends Queue<T> {
         this._size = 0;
         this._head = 0;
         this._tail = -1;
+
+        this._slots.splice(0);
+        this._items.splice(0);
     }
 }

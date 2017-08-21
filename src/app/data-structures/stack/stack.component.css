@@ -6,7 +6,31 @@
     clear: both;
 }
 
+.row-.array {
+    /*padding-bottom: 0px;*/
+    margin-bottom: 0px;
+}
+
 [class*='row-']:last-of-type {
     padding-right: 0;
     padding-bottom: 0;
+}
+
+.stack-node {
+    padding: 20px;
+    text-align: center;
+    color: #000;
+    height: 80px;
+    width: 80px;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #000;
+    border-radius: 2px 2px 2px 2px;
+    border-width: 2px 2px 2px 2px;
+}
+
+.stack-node:hover {
+    background-color: #EEE;
+    cursor: pointer;
+    color: #607d8b;
 }

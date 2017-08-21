@@ -6,13 +6,13 @@
         <div class="form-row">
             <div class="form-group">
                 <label>Type:</label>
-                <select class="form-control" #type>
+                <select class="form-control" #stacktype (change)="onStackTypeChange($event.target.value)">
                     <option value="linkedlist" selected>Linked List</option>
                     <option value="array">Array</option>
                 </select>
             </div>
             <div class="form-group">
-                <select class="form-control" #type>
+                <select class="form-control" #datatype (change)="onDataTypeChange($event.target.value)">
                     <option value="number" selected>Number</option>
                     <option value="string">String</option>
                 </select>
@@ -31,12 +31,17 @@
         </div>
     </form>
     <div class="grid grid-pad">
-        <div *ngFor="let item of stack.items">
-            <div class="row-">
-                <div class="node">
-                    <h4>{{item}}</h4>
+        <div *ngFor="let slot of stack.slots; let i=index;">
+            <div class="row-" [class.array]="stackType === 'array'">
+                <div class="stack-node">
+                    <h4>{{stack.items[i]}}</h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<ng-template #shownothing>
+    <div class="stack-node" *ngIf="slot === true; else shownothing">
+        <h4>&nbsp;</h4>
+    </div>
+</ng-template>

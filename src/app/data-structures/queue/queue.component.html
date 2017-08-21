@@ -6,13 +6,13 @@
         <div class="form-row">
             <div class="form-group">
                 <label>Type:</label>
-                <select class="form-control" #type>
+                <select class="form-control" #queuetype (change)="onQueueTypeChange($event.target.value)">
                     <option value="linkedlist" selected>Linked List</option>
                     <option value="array">Array</option>
                 </select>
             </div>
             <div class="form-group">
-                <select class="form-control" #type>
+                <select class="form-control" #datatype (change)="onDataTypeChange($event.target.value)">
                     <option value="number" selected>Number</option>
                     <option value="string">String</option>
                 </select>
@@ -31,10 +31,15 @@
         </div>
     </form>
     <div class="grid grid-pad">
-        <div *ngFor="let slot of queue.slots; let i=index;" class="col-">
-            <div class="queue-node">
-                <h4>{{items[i]}}</h4>
+        <div *ngFor="let slot of queue.slots; let i=index;" class="col-" [class.array]="queueType === 'array'">
+            <div class="queue-node" *ngIf="slot === true; else shownothing">
+                <h4>{{queue.items[i]}}</h4>
             </div>
         </div>
     </div>
 </div>
+<ng-template #shownothing>
+    <div class="queue-node">
+        <h4>&nbsp;</h4>
+    </div>
+</ng-template>
