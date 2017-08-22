@@ -11,6 +11,7 @@ import {AppRoutingModule} from "./app-routing.module";
 // import {HeroDetailComponent} from "./hero-detail.component";
 // import {HeroService} from "./hero.service";
 
+import {BinaryTreeComponent} from "./data-structures/binary-tree/binary-tree.component";
 import {LinkedListComponent} from "./data-structures/linked-list/linked-list.component";
 import {QueueComponent} from "./data-structures/queue/queue.component";
 import {StackComponent} from "./data-structures/stack/stack.component";
@@ -21,7 +22,7 @@ import { InMemoryDataService }  from "./in-memory-data.service";
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [AppComponent, LinkedListComponent, QueueComponent, StackComponent //,
+  declarations: [AppComponent, BinaryTreeComponent, LinkedListComponent, QueueComponent, StackComponent //,
                   //DashboardComponent, HeroesComponent, HeroDetailComponent
                 ],
   imports: [

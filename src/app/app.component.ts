@@ -10,6 +10,7 @@ export class AppComponent {
     public activeRoute: string = "/linked-list";
 
     public routes: Array<{ route: string; label: string; }> = [
+        { route: "/binary-tree", label: "Binary Tree"},
         { route: "/linked-list", label: "Linked List" }, 
         { route: "/queue", label: "Queue" }, 
         { route: "/stack", label: "Stack" }

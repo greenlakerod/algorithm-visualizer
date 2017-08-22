@@ -1,0 +1,36 @@
+<div class="component">
+    <div class="page-header">
+        <h1>Binary Tree</h1>
+    </div>
+    <form class="form-inline">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Type:</label>
+                <select class="form-control" #treetype (change)="onTreeTypeChange($event.target.value)">
+                    <option value="bst" selected>Binary Search Tree</option>
+                    <option value="avl">AVL Tree</option>
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <select class="form-control" #datatype (change)="onDataTypeChange($event.target.value)">
+                    <option value="number" selected>Number</option>
+                    <option value="string">String</option>
+                </select>
+            </div> -->
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Value:</label>
+                <input class="form-control" #item />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default-outline" (click)="add(item.value); item.value='';">Add</button>
+                <button type="button" class="btn btn-default-outline" (click)="remove(item.value); item.value='';">Remove</button>
+                <button type="button" class="btn btn-default-outline" (click)="clear();">Clear</button>
+            </div>
+        </div>       
+    </form>
+    <div class="grid grid-pad">
+        <div id="tree-view"></div>
+    </div>
+</div>
