@@ -1,22 +1,19 @@
 import {ITreeNode, TreeNode} from "./tree-node";
 
 export interface IBinaryTree {
-    add: (value: any) => boolean;
-    remove: (value: any) => boolean;
+    add: (value: any) => void;
+    remove: (value: any) => void;
     traverse: (order: "inorder" | "preorder" | "postorder", nodes: Array<any>) => void;
-    // traverseInOrder: (node: ITreeNode) => Array<any>;
-    // traversePreOrder: (node: ITreeNode) => Array<any>;
-    // traversePostOrder: (node: ITreeNode) => Array<any>;
 }
 
 export abstract class BinaryTree<T> implements IBinaryTree {
-    private _root: TreeNode<T>;
+    protected _root: TreeNode<T>;
 
     public get height(): number { return -1; }
     public get width(): number { return -1; }
 
-    public abstract add(value: T): boolean;
-    public abstract remove(value: T): boolean;
+    public abstract add(value: T): void;
+    public abstract remove(value: T): void;
 
     // depth first: http://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
     // breadth first: http://www.geeksforgeeks.org/?p=2686
@@ -27,6 +24,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
             case "inorder": fn = this.traverseInOrder; break;
             case "preorder": fn = this.traversePreOrder; break;
             case "postorder": fn = this.traversePostOrder; break;
+            case "levelorder": fn = this.traverseLevelOrder; break;
             default: break;
         }
 
@@ -56,7 +54,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
             nodes.push(node.value);
         }
     }  
-    protected traverseLevelOrder(nodes: Array<T>): void {
+    protected traverseLevelOrder(node: TreeNode<T>, nodes: Array<T>): void {
         for (let i = 1; i <= this.height; i++) {
             this.printLevel(this._root, nodes, i);
         }
