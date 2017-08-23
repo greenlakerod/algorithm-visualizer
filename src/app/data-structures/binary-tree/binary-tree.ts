@@ -10,6 +10,7 @@ export interface IBinaryTree {
     treeView: Array<BootstrapTreeViewNodeData>;
     add: (value: any) => void;
     remove: (value: any) => void;
+    find: (value: any) => IBinaryTreeNode;
     clear: () => void;
     traverse: (order: "inorder" | "preorder" | "postorder" | "levelorder", nodes: Array<any>) => void;
 }
@@ -24,6 +25,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
 
     public abstract add(value: T): void;
     public abstract remove(value: T): void;
+    public abstract find(value: T): BinaryTreeNode<T>;
 
     // depth first: http://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
     // breadth first: http://www.geeksforgeeks.org/?p=2686
@@ -44,13 +46,19 @@ export abstract class BinaryTree<T> implements IBinaryTree {
     }
     public clear(): void {
         this.clearTree(this._root);
+        delete this._root;
+
         this._treeView = [];
     }
     protected clearTree(node: BinaryTreeNode<T>): void {
         if (node) {
             this.clearTree(node.left);
+            delete node.left;
+
             this.clearTree(node.right);
-            node = null;
+            delete node.right;
+
+            //node = null;
         }
     }
     protected traverseInOrder(node: BinaryTreeNode<T>, nodes: Array<T>): void {

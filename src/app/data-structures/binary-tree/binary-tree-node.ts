@@ -28,8 +28,8 @@ export class BinaryTreeNode<T> implements IBinaryTreeNode {
     }
 
     constructor(public value: T) {
-        this.left = null;
-        this.right = null;
+        //this.left = null;
+        //this.right = null;
     }
 
     public compareTo(v: T): number {

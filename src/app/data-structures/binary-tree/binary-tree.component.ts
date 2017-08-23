@@ -21,7 +21,7 @@ export class BinaryTreeComponent implements OnInit {
 
     public ngOnInit(): void {
         this.setType();
-        (<any>$(BinaryTreeComponent.treeViewSelector)).treeview({ data: this._tree.treeView });
+        //(<any>$(BinaryTreeComponent.treeViewSelector)).treeview({ data: this._tree.treeView });
     }
 
     public setType(): void {
@@ -45,12 +45,14 @@ export class BinaryTreeComponent implements OnInit {
 
     public add(value: any): void {
         this._tree.add(value);
+        $(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
     }
     public remove(value: any): void {
         this._tree.remove(value);
     }
     public clear(): void {
         this._tree.clear();
+        $(BinaryTreeComponent.treeViewSelector).treeview("remove");
     }
     public onTreeTypeChange(type: string): void {
         this._treeType = type;
