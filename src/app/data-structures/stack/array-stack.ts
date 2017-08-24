@@ -45,7 +45,7 @@ export class ArrayStack<T> extends Stack<T> {
     }
     public peek(): T {
         if (this._size === 0) {
-            throw "Stack is empty";
+            return null;
         }
 
         return this._items[this._size - 1];

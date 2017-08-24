@@ -36,7 +36,7 @@ export class LinkedListStack<T> extends Stack<T> {
     }
     public peek(): T {
         if (this.size === 0) {
-            throw "Stack is empty";
+            return null;
         }
 
         return this._list.head.value;

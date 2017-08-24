@@ -92,7 +92,7 @@ export class ArrayQueue<T> extends Queue<T> {
     }
     public peek(): T {
         if (this.count === 0) {
-            throw "Queue is empty";
+            return null;
         }
 
         return this._items[this._head];

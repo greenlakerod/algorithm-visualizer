@@ -38,7 +38,7 @@ export class LinkedListQueue<T> extends Queue<T> {
     }
     public peek(): T {
         if (this.count === 0) {
-            throw "Queue is empty";
+            return null;
         }
 
         return this._list.head.value;
