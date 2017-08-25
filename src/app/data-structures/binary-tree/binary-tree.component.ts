@@ -54,7 +54,7 @@ export class BinaryTreeComponent implements OnInit {
     }
 
     public add(value: any): void {
-        this._worker.postMessage(value);
+        //this._worker.postMessage(value);
         // try {
             // let self = this;
             // const promise = this._webWorkerService.run(self._tree.add, value);
@@ -64,16 +64,16 @@ export class BinaryTreeComponent implements OnInit {
         //     alert(JSON.stringify(e));
         // }
         
-        // this._tree.add(value);
-        // $(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
+        this._tree.add(value);
+        $(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
     }
     public remove(value: any): void {
         // let self = this;
         // const promise = this._webWorkerService.run(self._tree.remove, value);
         // promise.then((result: any) => { $(BinaryTreeComponent.treeViewSelector).treeview({ data: self._tree.treeView }); })
         //     .catch((e) => { alert(JSON.stringify(e)); });
-        //this._tree.remove(value);
-        //$(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
+        this._tree.remove(value);
+        $(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
     }
     public clear(): void {
         this._tree.clear();
@@ -89,28 +89,24 @@ export class BinaryTreeComponent implements OnInit {
     }
 
     protected initWebWorker(script: string) {
+        // //let url: URL = window.URL || (<any>window).webkitURL;
+        // //let Blob = window.Blob;
+        // // let Worker = (<any>window).Worker;
         
+        // // if (!URL || !Blob || !(<any>window).Worker || !script) {
+        // //     return null;
+        // // }
         
-        //let url: URL = window.URL || (<any>window).webkitURL;
-        //let Blob = window.Blob;
-        // let Worker = (<any>window).Worker;
-        
-        // if (!URL || !Blob || !(<any>window).Worker || !script) {
-        //     return null;
-        // }
-        
-        // let blob = new Blob([script]);
-        // let worker: Worker = new Worker();
-        // return worker;
+        // // let blob = new Blob([script]);
+        // // let worker: Worker = new Worker();
+        // // return worker;
 
-        
-
-        this._worker = new Worker(WorkerPath);
-        this._worker.addEventListener("message", (evt: MessageEvent) => {
-            console.log(JSON.stringify(evt));
-        });
-        this._worker.onmessage = (evt: MessageEvent) => {
-            //$(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
-        };
+        // this._worker = new Worker(WorkerPath);
+        // this._worker.addEventListener("message", (evt: MessageEvent) => {
+        //     console.log(JSON.stringify(evt));
+        // });
+        // this._worker.onmessage = (evt: MessageEvent) => {
+        //     //$(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
+        // };
     }
 }
