@@ -1,0 +1,18 @@
+<div class="component">
+    <div class="page-header">
+        <h1>Search</h1>
+    </div>
+    <form class="form-inline">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Search Type:</label>
+                <select class="form-control" id="searchtype" #searchtype (change)="onSearchTypeChange($event.target.value)">
+                    <option value="string" selected>String</option>
+                    <option value="array">Array</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <string-search *ngIf="searchType === 'string'"></string-search>
+    <array-search *ngIf="searchType === 'array'"></array-search>
+</div>

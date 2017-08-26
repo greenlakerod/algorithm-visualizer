@@ -12,8 +12,9 @@ export class AppComponent {
     public routes: Array<{ route: string; label: string; }> = [
         { route: "/binary-tree", label: "Binary Tree"},
         { route: "/linked-list", label: "Linked List" }, 
-        { route: "/queue", label: "Queue" }, 
-        { route: "/stack", label: "Stack" }
+        { route: "/queue", label: "Queue" },  
+        { route: "/stack", label: "Stack" },
+        { route: "/search", label: "Search" }
     ];
 
     public clickNav(route: string): void {

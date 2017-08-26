@@ -1,38 +1,30 @@
-import {ISearchResult, ISearchAlgorithm} from "./search";
+import {ISearchResult, SearchAlgorithm} from "./search";
 
-export class NaiveStringSearch implements ISearchAlgorithm {
-    public search(toFind: string, toSearch: string): ISearchResult {
-        let result: ISearchResult = { found: false, comparisons: 0, startIndex: -1 };
+export class NaiveStringSearch extends SearchAlgorithm<string> {
+    public *search(toFind: string, toSearch: string): Iterable<ISearchResult> {
+        this._comparisons = 0;
         
         if (toSearch && toFind && toSearch.length > 0 && toFind.length > 0 && toSearch.length >= toFind.length) {
             for (let startIndex = 0; startIndex < (toSearch.length - toFind.length); startIndex++) {
                 let matchCount = 0;
                 while (toSearch[startIndex + matchCount].toLowerCase() === toFind[matchCount].toLowerCase()) {
                     matchCount++;
-                    result.comparisons++;
+                    this._comparisons++;
 
                     if (toFind.length === matchCount) {
-                        result.found = true;
-                        result.startIndex = startIndex;
-                        break;
+                        yield <ISearchResult>{ startIndex: startIndex };
                     }
                 }
 
-                if (result.found) {
-                    break;
-                }
-
                 if (matchCount == 0) {
-                    result.comparisons++;
+                    this._comparisons++;
                 }
             }
         }
-
-        return result;
     }
 }
 
-export class BoyerMooreHorspoolStringSearch implements ISearchAlgorithm {
+export class BoyerMooreHorspoolStringSearch extends SearchAlgorithm<string> {
     private _buildBadMatchShiftTable(toFind: string): { [char: string]: number } {
         let shiftDistances = {};
         for (let i = 0; i < toFind.length; i++) {
@@ -42,8 +34,8 @@ export class BoyerMooreHorspoolStringSearch implements ISearchAlgorithm {
         return shiftDistances;
     }
 
-    public search(toFind: string, toSearch: string): ISearchResult {
-        let result: ISearchResult = { found: false, comparisons: 0, startIndex: -1 };
+    public *search(toFind: string, toSearch: string): Iterable<ISearchResult> {
+        this._comparisons = 0;
         
         if (toSearch && toFind && toSearch.length > 0 && toFind.length > 0 && toSearch.length >= toFind.length) {
             let badMatchShiftTable = this._buildBadMatchShiftTable(toFind);
@@ -53,22 +45,18 @@ export class BoyerMooreHorspoolStringSearch implements ISearchAlgorithm {
                 let remaining = toFind.length;
                 while (remaining >= 0 && toSearch[remaining].toLowerCase() === toFind[startIndex + remaining].toLowerCase()) {
                     remaining--;
-                    result.comparisons++;
+                    this._comparisons++;
                 }
 
                 if (remaining === toFind.length) {
-                    result.comparisons++;
+                    this._comparisons++;
                 }
                 if (remaining < 0) {
-                    result.found = true;
-                    result.startIndex = startIndex;
-                    break;
+                    yield <ISearchResult>{ startIndex: startIndex };
                 } else {
                     startIndex += badMatchShiftTable[toSearch[startIndex + toFind.length - 1]];
                 }
             }
         }
-
-        return result;
     }
 }

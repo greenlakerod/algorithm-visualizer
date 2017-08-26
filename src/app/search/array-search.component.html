@@ -1,0 +1,25 @@
+<!--<h2>Array Search</h2>-->
+<form class="form-inline">
+    <div class="form-row">
+        <div class="form-group">
+            <label>Data Type:</label>
+            <select class="form-control" id="data-type" #datatype (change)="onDataTypeChange($event.target.value)">
+                <option value="number" selected>Number</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Number of Values</label>
+            <input type="number" class="form-control" #numvalues min="0" />
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-default-outline" (click)="generate(numvalues.value);">Generate</button>
+        </div>
+    </div>
+</form>
+<div class="grid grid-pad">
+    <div *ngFor="let item of items" class="col- array">
+        <div class="queue-node">
+            <h4>{{item}}</h4>
+        </div>
+    </div>
+</div>

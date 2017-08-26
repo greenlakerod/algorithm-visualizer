@@ -14,7 +14,10 @@ import {AppRoutingModule} from "./app-routing.module";
 import {BinaryTreeComponent} from "./data-structures/binary-tree/binary-tree.component";
 import {LinkedListComponent} from "./data-structures/linked-list/linked-list.component";
 import {QueueComponent} from "./data-structures/queue/queue.component";
+import {SearchComponent} from "./search/search.component";
 import {StackComponent} from "./data-structures/stack/stack.component";
+import {ArraySearchComponent} from "./search/array-search.component";
+import {StringSearchComponent} from "./search/string-search.component";
 
 import {WebWorkerService} from "angular2-web-worker/web-worker.service";
 //import {WebWorkerService} from "angular2-web-worker/web-worker.service";
@@ -25,7 +28,9 @@ import { InMemoryDataService }  from "./in-memory-data.service";
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [AppComponent, BinaryTreeComponent, LinkedListComponent, QueueComponent, StackComponent //,
+  declarations: [AppComponent, BinaryTreeComponent, LinkedListComponent, 
+                 QueueComponent, SearchComponent, StackComponent, ArraySearchComponent,
+                 StringSearchComponent //,
                   //DashboardComponent, HeroesComponent, HeroDetailComponent
                 ],
   imports: [

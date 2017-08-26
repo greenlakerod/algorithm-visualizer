@@ -1,35 +1,31 @@
-import {ISearchResult, ISearchAlgorithm} from "./search";
+import {ISearchResult, SearchAlgorithm} from "./search";
 
-export class SequentialSearch implements ISearchAlgorithm {
-    public search(toFind: number, toSearch: Array<number>): ISearchResult {
-        let result: ISearchResult = { found: false, comparisons: 0, startIndex: -1 };
+export class SequentialSearch<T> extends SearchAlgorithm<T> {
+    public *search(toFind: T, toSearch: Array<T>): Iterable<ISearchResult> {
+        this._comparisons = 0;
 
         if (toSearch && toSearch.length > 0 && toFind != null && toFind != undefined) {
             for (let i = 0; i < toSearch.length; i++) {
-                result.comparisons++;
+                this._comparisons++;
 
                 if (toSearch[i] === toFind) {
-                    result.found = true;
-                    result.startIndex = i;
-                    break;
+                    yield <ISearchResult>{ startIndex: i };
                 }
             }
         }
-
-        return result;
     }
 }
 
-export class BinarySearch implements ISearchAlgorithm {
-    public search(toFind: number, toSearch: Array<number>): ISearchResult {
-        let result: ISearchResult = { found: false, comparisons: 0, startIndex: -1 };
+export class BinarySearch<T> extends SearchAlgorithm<T> {
+    public *search(toFind: T, toSearch: Array<T>): Iterable<ISearchResult> {
+        this._comparisons = 0;
 
         if (toSearch && toSearch.length > 0 && toFind != null && toFind != undefined) {
             let left = 0;
             let right = toSearch.length - 1;
 
             while (left <= right) {
-                result.comparisons++;
+                this._comparisons++;
 
                 let mid = left + ((right - left) / 2);
                 if (toSearch[mid] > toFind) {
@@ -37,39 +33,37 @@ export class BinarySearch implements ISearchAlgorithm {
                 } else if (toSearch[mid] < toFind) {
                     left = mid + 1;
                 } else {
-                    result.found = true;
-                    result.startIndex = mid;
-                    break;
+                    yield { startIndex: mid };
                 }
             }
         }
-
-        return result;
     }
 }
 
-export class BinarySearchRecursive implements ISearchAlgorithm {
-    public search(toFind: number, toSearch: Array<number>): ISearchResult {
-        let result: ISearchResult = { found: false, comparisons: 0, startIndex: -1 };
+export class BinarySearchRecursive<T> extends SearchAlgorithm<T> {
+    public *search(toFind: T, toSearch: Array<T>): Iterable<ISearchResult> {
+        this._comparisons = 0;
+        let result = this._binarySearch(toFind, toSearch, 0, toSearch.length - 1);
 
-        this._binarySearch(toFind, toSearch, 0, toSearch.length - 1, result);
-
-        return result;
+        if (result) {
+            yield result;
+        }
     }
 
-    private _binarySearch(toFind: number, toSearch: Array<number>, left: number, right: number, result: ISearchResult): void {
+    private _binarySearch(toFind: T, toSearch: Array<T>, left: number, right: number): ISearchResult {
         if (left <= right) {
-            result.comparisons++;
+            this._comparisons++;
 
             let mid = left + ((right - left) / 2);
             if (toSearch[mid] > toFind) {
-                this._binarySearch(toFind, toSearch, left, mid - 1, result);
+                return this._binarySearch(toFind, toSearch, left, mid - 1);
             } else if (toSearch[mid] < toFind) {
-                this._binarySearch(toFind, toSearch, mid + 1, right, result);
+                return this._binarySearch(toFind, toSearch, mid + 1, right);
             } else {
-                result.found = true;
-                result.startIndex = mid;
+                return <ISearchResult>{ startIndex: mid };
             }
         }
+
+        return null;
     }
 }

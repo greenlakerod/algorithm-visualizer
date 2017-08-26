@@ -2,7 +2,6 @@
 /// <reference path="../../../../node_modules/@types/bootstrap-treeview/index.d.ts" />
 
 import {Component, OnInit} from "@angular/core";
-//import * as $ from "jquery";
 import {IBinaryTree, BinaryTree} from "./binary-tree";
 import {BinarySearchTree} from "./binary-search-tree";
 import {AVLTree} from "./avl-tree";
