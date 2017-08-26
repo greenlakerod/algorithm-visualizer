@@ -3,23 +3,57 @@
     <div class="form-row">
         <div class="form-group">
             <label>Data Type:</label>
-            <select class="form-control" id="data-type" #datatype (change)="onDataTypeChange($event.target.value)">
+            <select class="form-control" #datatype (change)="onDataTypeChange($event.target.value)">
                 <option value="number" selected>Number</option>
             </select>
         </div>
+    </div>
+    <div class="form-row">
         <div class="form-group">
-            <label>Number of Values</label>
-            <input type="number" class="form-control" #numvalues min="0" />
+            <label># Values:</label>
+            <input type="number" class="form-control" #numvalues min="1" />
         </div>
         <div class="form-group">
             <button type="button" class="btn btn-default-outline" (click)="generate(numvalues.value);">Generate</button>
         </div>
     </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Search:</label>
+            <input type="number" class="form-control" #search min="1" />
+        </div>
+        <div class="form-group">
+            <label>Algorithm:</label>
+            <select class="form-control" #algorithm (change)="onAlgorithmTypeChange($event.target.value)">
+                <option value="sequential" selected>Sequential Search</option>
+                <option value="binary" >Binary Search</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-default-outline" (click)="search(search.value);">Search</button>
+        </div>
+    </div>
 </form>
-<div class="grid grid-pad">
+<div class="grid grid-pad" *ngIf="items && items.length > 0">
     <div *ngFor="let item of items" class="col- array">
         <div class="queue-node">
             <h4>{{item}}</h4>
         </div>
     </div>
 </div>
+<div class="search-results" *ngIf="searchResults" style="clear: both;">
+    <span>
+        <h4>Results</h4>
+        <div *ngIf="searchResults.length > 0; else noresult">
+            <label>Index:</label> {{searchResults[0].startIndex}}
+        </div>
+        <div>
+            <label>Comparisons:</label> {{algorithm.comparisons}}
+        </div>
+    </span>
+</div>
+<ng-template #noresult>
+    <div>
+        <label>Index:</label> Not found
+    </div>
+</ng-template>
