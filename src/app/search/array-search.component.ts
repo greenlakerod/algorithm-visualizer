@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {SequentialSearch, BinarySearch} from "./array-search";
+import {SequentialSearch, BinarySearch, BinarySearchRecursive} from "./array-search";
 import {ISearchResult, ISearchAlgorithm} from "./search";
 
 @Component({
@@ -15,10 +15,10 @@ export class ArraySearchComponent implements OnInit {
     public get searchType(): string { return this._searchType; }
 
     private _algorithm: ISearchAlgorithm;
-    public get algorithm(): ISearchAlgorithm { return this._algorithm; }
-
     private _searchResults: Array<ISearchResult>;
     public get searchResults(): Array<ISearchResult> { return this._searchResults; }
+
+    public get comparisons(): number { return this._algorithm.comparisons; }
 
     private _items: Array<any>;
     public get items(): Array<any> { return this._items; }
@@ -28,7 +28,7 @@ export class ArraySearchComponent implements OnInit {
         this._algorithm = new SequentialSearch<number>();
     }
 
-    public generate(count: string | number): void {
+    public generate(count: string | number, sorted: boolean = true): void { 
         this._items = null;
         this._searchResults = null;
 
@@ -39,15 +39,18 @@ export class ArraySearchComponent implements OnInit {
             array[i] = i;
         }
 
-        let tmp, current, top = array.length;
-        if (top) {
-            while (--top) {
-                current = Math.floor(Math.random() * (top + 1));
-                tmp = array[current];
-                array[current] = array[top];
-                array[top] = tmp;
+        if (!sorted) {
+            let tmp, current, top = array.length;
+            if (top) {
+                while (--top) {
+                    current = Math.floor(Math.random() * (top + 1));
+                    tmp = array[current];
+                    array[current] = array[top];
+                    array[top] = tmp;
+                }
             }
         }
+
 
         //this.setType(ct);
         this._items = array;
@@ -58,26 +61,31 @@ export class ArraySearchComponent implements OnInit {
 
         if (type == "sequential") {
             this._algorithm = new SequentialSearch<number>();
-        } else {
+        } else if (type == "binary") {
             this._algorithm = new BinarySearch<number>();
+        } else {
+            this._algorithm = new BinarySearchRecursive<number>();
         }
     }
 
     public onDataTypeChange(type: string): void {}
 
     public search(value: string | number): void {
-        console.log("search: " + value);
+        this._searchResults = [];
         let val = parseInt(value.toString());
         let results = this._algorithm.search(val, this._items);
-        this._searchResults = [];
 
         let done = false;
         while (!done) {
             let result = (<any>results).next();
             if (result.value !== undefined && !result.done) {
                 this._searchResults.push(<ISearchResult>result);
+            } else {
+                done = true;
             }
         }
+
+        console.log("comparisons: " + this._algorithm.comparisons);
     }
 
     private setType(count?: number): void {

@@ -20,17 +20,18 @@
     <div class="form-row">
         <div class="form-group">
             <label>Search:</label>
-            <input type="number" class="form-control" #search min="1" />
+            <input type="number" class="form-control" #searchtxt min="1" />
         </div>
         <div class="form-group">
             <label>Algorithm:</label>
             <select class="form-control" #algorithm (change)="onAlgorithmTypeChange($event.target.value)">
                 <option value="sequential" selected>Sequential Search</option>
                 <option value="binary" >Binary Search</option>
+                <option value="binaryrecursive" >Binary Search (Recursive)</option>
             </select>
         </div>
         <div class="form-group">
-            <button type="button" class="btn btn-default-outline" (click)="search(search.value);">Search</button>
+            <button type="button" class="btn btn-default-outline" (click)="search(searchtxt.value);">Search</button>
         </div>
     </div>
 </form>
@@ -44,11 +45,11 @@
 <div class="search-results" *ngIf="searchResults" style="clear: both;">
     <span>
         <h4>Results</h4>
-        <div *ngIf="searchResults.length > 0; else noresult">
-            <label>Index:</label> {{searchResults[0].startIndex}}
+        <div *ngIf="searchResults.length > 0 && searchResults[0].value.startIndex >= 0; else noresult">
+            <label>Index:</label> {{searchResults[0].value.startIndex}}
         </div>
         <div>
-            <label>Comparisons:</label> {{algorithm.comparisons}}
+            <label>Comparisons:</label> {{comparisons}}
         </div>
     </span>
 </div>
