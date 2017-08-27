@@ -8,6 +8,7 @@ import {LinkedListStack} from "../stack/linked-list-stack";
 export interface IBinaryTree {
     height: number;
     width: number;
+    count: number;
     treeView: Array<BootstrapTreeViewNodeData>;
     add: (value: any) => void;
     remove: (value: any) => void;
@@ -19,10 +20,12 @@ export interface IBinaryTree {
 export abstract class BinaryTree<T> implements IBinaryTree {
     protected _root: BinaryTreeNode<T>;
     protected _treeView: Array<BootstrapTreeViewNodeData> = [];
+    protected _count: number;
     
-    public get height(): number { return this.nodeHeight(this._root); }
-    public get width(): number { return this.nodeWidth(this._root); }
+    public get height(): number { return this._root ? this._root.height : 0; }
+    public get width(): number { return this._root ? this._root.width : 0; }
     public get treeView(): Array<BootstrapTreeViewNodeData> { return this._treeView; }
+    public get count(): number { return this._count; }
 
     public abstract add(value: T): void;
     public abstract remove(value: T): void;
@@ -160,14 +163,5 @@ export abstract class BinaryTree<T> implements IBinaryTree {
                 this.printLevel(node.right, nodes, level - 1);
             }
         }
-    }
-
-    protected nodeHeight(node: BinaryTreeNode<T>): number {
-        if (!node) { return 0; }
-        return node.height;
-    }
-    protected nodeWidth(node: BinaryTreeNode<T>): number {
-        if (!node) { return 0; }
-        return node.width;
     }
 }
