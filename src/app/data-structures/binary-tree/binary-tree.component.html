@@ -29,8 +29,37 @@
                 <button type="button" class="btn btn-default-outline" (click)="clear();">Clear</button>
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Traverse:</label>
+                <select class="form-control" #traversaltype (change)="onTraversalTypeChange($event.target.value)">
+                    <option value="inorder" selected>In Order</option>
+                    <option value="preorder">Preorder</option>
+                    <option value="postorder">Postorder</option>
+                    <option value="levelorder">Level Order</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Recursive</label>
+                <input class="form-control" type="checkbox" checked="checked" (change)="onRecursiveTraversalChange($event.target.checked)"/>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default-outline" (click)="traverse()">Traverse</button>
+            </div>
+        </div>
     </form>
     <div class="grid grid-pad">
-        <div id="tree-view"></div>
+        <div class="row">
+            <div class="col">
+                <div id="tree-view"></div>
+            </div>
+            <div class="col">
+                <div *ngIf="traversalOutput != undefined && traversalOutput != null" style="float: left; display: inline;">
+                    <div *ngFor="let item of traversalOutput">
+                        {{item}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -6,8 +6,8 @@ export interface ILinkedList {
     count: number;
 
     add: (v: any, index?: number) => void;
-    addFirst: (v: any | ILinkedListNode) => void;
-    addLast: (v: any | ILinkedListNode) => void;
+    addFirst: (v: any) => void;
+    addLast: (v: any) => void;
     
     remove: (v: any) => boolean;
     removeAt: (index: number) => boolean;
@@ -29,37 +29,31 @@ export class LinkedList<T> implements ILinkedList {
     private _count: number = 0;
     public get count(): number { return this._count; }
 
-    public addFirst(v: T | LinkedListNode<T>): void {
+    public addFirst(v: T): void {
         if (v !== undefined && v !== null) {
-            if (typeof v === "object") {
-                let temp: LinkedListNode<T> = this.head;
+            let newNode = new LinkedListNode<T>(v);
+            let temp: LinkedListNode<T> = this.head;
 
-                this.head = <LinkedListNode<T>>v;
-                this.head.next = temp;
+            this.head = newNode;
+            this.head.next = temp;
 
-                this._count++;
-                if (this._count === 1) {
-                    this.tail = this.head;
-                }
-            } else {
-                this.addFirst(new LinkedListNode<T>(v));
+            this._count++;
+            if (this._count === 1) {
+                this.tail = this.head;
             }
         }
     }
-    public addLast(v: T | LinkedListNode<T>): void {
+    public addLast(v: T): void {
         if (v !== undefined && v !== null) {
-            if (typeof v === "object") {
-                if (this._count === 0) {
-                    this.head = <LinkedListNode<T>>v;
-                } else {
-                    this.tail.next = <LinkedListNode<T>>v;
-                }
-
-                this.tail = <LinkedListNode<T>>v;
-                this._count++;
+            let newNode = new LinkedListNode<T>(v);
+            if (this._count === 0) {
+                this.head = newNode;
             } else {
-                this.addLast(new LinkedListNode<T>(v));
+                this.tail.next = newNode;
             }
+
+            this.tail = newNode;
+            this._count++;
         }
     }
     public add(v: T, index?: number): void {
@@ -103,7 +97,7 @@ export class LinkedList<T> implements ILinkedList {
                 this.tail = null;
             } else {
                 let current: LinkedListNode<T> = this.head;
-                while (current.next != null) {
+                while (current.next != this.tail) {
                     current = current.next;
                 }
                 
@@ -112,6 +106,10 @@ export class LinkedList<T> implements ILinkedList {
             }
 
             this._count--;
+            if (this._count === 0) {
+                this.head = null;
+                this.tail = null;
+            }
             return true;
         }
 

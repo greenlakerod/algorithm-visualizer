@@ -22,7 +22,12 @@ export class BinaryTreeComponent implements OnInit {
     private _tree: IBinaryTree;
     private _treeType = "bst";
     private _dataType = "number";
+    private _traversalType: "inorder" | "preorder" | "postorder" | "levelorder" = "inorder";
+    private _recursiveTraversal: boolean = true;
     private _worker: Worker;
+
+    private _traversalOutput: Array<any>;
+    public get traversalOutput(): Array<any> { return this._traversalOutput; }
 
     constructor(private _webWorkerService: WebWorkerService) {}
 
@@ -53,6 +58,7 @@ export class BinaryTreeComponent implements OnInit {
     }
 
     public add(value: any): void {
+        this._traversalOutput = [];
         //this._worker.postMessage(value);
         // try {
             // let self = this;
@@ -67,6 +73,7 @@ export class BinaryTreeComponent implements OnInit {
         $(BinaryTreeComponent.treeViewSelector).treeview({ data: this._tree.treeView });
     }
     public remove(value: any): void {
+        this._traversalOutput = [];
         // let self = this;
         // const promise = this._webWorkerService.run(self._tree.remove, value);
         // promise.then((result: any) => { $(BinaryTreeComponent.treeViewSelector).treeview({ data: self._tree.treeView }); })
@@ -76,15 +83,29 @@ export class BinaryTreeComponent implements OnInit {
     }
     public clear(): void {
         this._tree.clear();
+        this._traversalOutput = [];
         $(BinaryTreeComponent.treeViewSelector).treeview("remove");
+    }
+    public traverse(): void {
+        this._traversalOutput = [];
+        this._tree.traverse(this._traversalType, this._traversalOutput, this._recursiveTraversal);
     }
     public onTreeTypeChange(type: string): void {
         this._treeType = type;
+        this._traversalOutput = [];
         this.setType();
     }
     public onDataTypeChange(type: string): void {
         this._dataType = type;
+        this._traversalOutput = []
         this.setType();
+    }
+    public onTraversalTypeChange(type: "inorder" | "preorder" | "postorder" | "levelorder"): void {
+        this._traversalType = type;
+        this._traversalOutput = [];
+    }
+    public onRecursiveTraversalChange(checked: boolean): void {
+        this._recursiveTraversal = checked;
     }
 
     protected initWebWorker(script: string) {
