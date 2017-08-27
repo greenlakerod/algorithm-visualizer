@@ -21,7 +21,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
     protected _treeView: Array<BootstrapTreeViewNodeData> = [];
     
     public get height(): number { return this.nodeHeight(this._root); }
-    public get width(): number { return this.nodeWidth(this._root, this.height); }
+    public get width(): number { return this.nodeWidth(this._root); }
     public get treeView(): Array<BootstrapTreeViewNodeData> { return this._treeView; }
 
     public abstract add(value: T): void;
@@ -163,22 +163,11 @@ export abstract class BinaryTree<T> implements IBinaryTree {
     }
 
     protected nodeHeight(node: BinaryTreeNode<T>): number {
-        if (!node) {
-            return 0;
-        }
-
-        let leftHeight = this.nodeHeight(node.left);
-        let rightHeight = this.nodeHeight(node.right);
-
-        return 1 + Math.max(leftHeight, rightHeight);
-    }
-    protected nodeWidth(node: BinaryTreeNode<T>, level: number): number {
         if (!node) { return 0; }
-        if (level == 1) { return 1; }
-
-        let leftWidth = this.nodeWidth(node.left, level - 1);
-        let rightWidth = this.nodeWidth(node.right, level - 1);
-
-        return leftWidth + rightWidth;
+        return node.height;
+    }
+    protected nodeWidth(node: BinaryTreeNode<T>): number {
+        if (!node) { return 0; }
+        return node.width;
     }
 }

@@ -6,6 +6,8 @@ export interface IBinaryTreeNode extends INode {
     value: any;
     left: IBinaryTreeNode;
     right: IBinaryTreeNode;
+    height: number;
+    width: number;
 }
 
 export class BinaryTreeNode<T> implements IBinaryTreeNode {
@@ -57,4 +59,24 @@ export class BinaryTreeNode<T> implements IBinaryTreeNode {
         if (this.value < v) { return -1; }
         return 0;
     };
+
+    public get height(): number {
+        let leftHeight = this.left ? this.left.height : 0;
+        let rightHeight = this.right ? this.right.height : 0;
+
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+    public get width(): number {
+        return this._nodeWidth(this, this.height);
+    }
+
+    protected _nodeWidth(node: BinaryTreeNode<T>, level: number): number {
+        if (!node) { return 0; }
+        if (level == 1) { return 1; }
+
+        let leftWidth = this._nodeWidth(node.left, level - 1);
+        let rightWidth = this._nodeWidth(node.right, level - 1);
+
+        return leftWidth + rightWidth;
+    }
 }
