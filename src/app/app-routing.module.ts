@@ -11,6 +11,7 @@ import {SearchComponent} from "./search/search.component";
 import {StackComponent} from "./data-structures/stack/stack.component";
 import {ArraySearchComponent} from "./search/array-search.component";
 import {StringSearchComponent} from "./search/string-search.component";
+import {SortComponent} from "./sort/sort.component";
 
 const routes: Routes = [
     {path: "", pathMatch: "full", redirectTo: "/linked-list"},
@@ -18,7 +19,8 @@ const routes: Routes = [
     {path: "linked-list", component: LinkedListComponent},
     {path: "queue", component: QueueComponent},
     {path: "stack", component: StackComponent},
-    {path: "search", component: SearchComponent}
+    {path: "search", component: SearchComponent},
+    {path: "sort", component: SortComponent}
     // {path: "dashboard", component: DashboardComponent},
     // {path: "heroes", component: HeroesComponent},
     // {path: "detail/:id", component: HeroDetailComponent}

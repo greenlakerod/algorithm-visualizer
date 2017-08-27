@@ -6,45 +6,51 @@ export class QuickSort<T> extends Sorter<T> {
         let result: ISortResult = <ISortResult>{ comparisons: 0, swaps: 0 };
         
         if (items && items.length > 1) {
-            this._sort(items, 0, items.length - 1, result);
+            this._sort(1, items, 0, items.length - 1, result);
         }
 
         return result;
     }
 
-    private _sort(items: Array<T>, start: number, end: number, result: ISortResult): void {
+    private _sort(iteration: number, items: Array<T>, start: number, end: number, result: ISortResult): void {
+        console.log(`sort (${iteration}): start: ${start}, end: ${end}, items: ${items}`);
+
         if (start < end) {
-            let currentPivotIndex = this._getRandomInRange(start, end);
-            let newPivotIndex = this._partition(items, start, end, currentPivotIndex, result);
+            let currentPivotIndex = this._setPivot(start, end);
 
-            this._sort(items, start, newPivotIndex - 1, result);
-            this._sort(items, newPivotIndex + 1, end, result);
-        }
-    }
+            this._swap(items, start, currentPivotIndex);
+            result.swaps++;
 
-    private _getRandomInRange(start: number, end: number): number {
-        return Math.floor((Math.random() * end) + start);
-    }
+            let key = items[start];
+            let i = start + 1;
+            let j = end;
+            while (i <= j) {
+                while ((i <= end) && (items[i] <= key)) {
+                    result.comparisons++;
+                    i++;
+                }
+                while ((j >= start) && (items[j] > key)) {
+                    result.comparisons++;
+                    j--;
+                }
 
-    private _partition(items: Array<T>, start: number, end: number, pivotIndex: number, result: ISortResult): number {
-        let pivotValue: T = items[pivotIndex];
-
-        this._swap(items, pivotIndex, end);
-        result.swaps++;
-
-        let currentIndex = start;
-        for (let i = start; i < end; i++) {
-            if (items[i] < pivotValue) {
-                this._swap(items, i, currentIndex++);
-                result.swaps++;
+                if (i < j) {
+                    this._swap(items, i, j);
+                    result.swaps++;
+                }
             }
 
-            result.comparisons++;
+            this._swap(items, start, j);
+            result.swaps++;
+
+            this._sort(iteration + 1, items, start, j - 1, result);
+            this._sort(iteration + 1, items, j + 1, end, result);
         }
 
-        this._swap(items, currentIndex, end);
-        result.swaps++;
+        console.log(`sorted (${iteration}): items: ${items}`);
+    }
 
-        return currentIndex;
+    private _setPivot(start: number, end: number): number {
+        return (Math.round((start + end) / 2)); //return return Math.floor((Math.random() * end) + start);
     }
 }

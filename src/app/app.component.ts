@@ -14,7 +14,8 @@ export class AppComponent {
         { route: "/linked-list", label: "Linked List" }, 
         { route: "/queue", label: "Queue" },  
         { route: "/stack", label: "Stack" },
-        { route: "/search", label: "Search" }
+        { route: "/search", label: "Search" },
+        { route: "/sort", label: "Sort" }
     ];
 
     public clickNav(route: string): void {
