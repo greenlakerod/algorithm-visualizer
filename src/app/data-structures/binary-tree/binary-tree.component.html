@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label>Recursive</label>
-                <input class="form-control" type="checkbox" checked="checked" (change)="onRecursiveTraversalChange($event.target.checked)"/>
+                <input class="form-control" type="checkbox" checked="checked" (change)="onRecursiveTraversalChange($event.target.checked)" />
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-default-outline" (click)="traverse()">Traverse</button>
@@ -55,7 +55,7 @@
             </div>
             <div class="col">
                 <div *ngIf="traversalOutput != undefined && traversalOutput != null" style="float: left; display: inline;">
-                    <div *ngFor="let item of traversalOutput">
+                    <div *ngFor="let item of traversalOutput" style="display: inline;">
                         {{item}}
                     </div>
                 </div>

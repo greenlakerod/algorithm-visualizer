@@ -48,6 +48,11 @@ export class Set<T> implements ISet {
     public remove(item: any): boolean {
         return this._items.remove(item);
     }
+
+    /**
+     * compares two Sets and returns a third Set that contains all of the unique values in both Sets
+     * @param other
+     */
     public union(other: Set<T>): Set<T> {
         let result: Set<T> = new Set<T>(this.items);
 
@@ -59,6 +64,10 @@ export class Set<T> implements ISet {
 
         return result;
     }
+    /**
+     * compares two Sets and returns a third Set that contains all of the values common to both Sets
+     * @param other
+     */
     public intersection(other: Set<T>): Set<T> {
         let result: Set<T> = new Set<T>();
 
@@ -70,6 +79,10 @@ export class Set<T> implements ISet {
 
         return result;
     }
+    /**
+     * takes two inputs Sets (A and B, respectively) and returns all the values in A that are not values in B
+     * @param other
+     */
     public difference(other: Set<T>): Set<T> {
         let result: Set<T> = new Set<T>(this.items);
 
@@ -79,6 +92,11 @@ export class Set<T> implements ISet {
 
         return result;
     }
+    /**
+     * takes two input Sets and returns a third Set that contains all of the values of both input Sets that are not in the other
+     * (i.e. values that are in either Set, but not both)
+     * @param other
+     */
     public symmetricDifference(other: Set<T>): Set<T> {
         let intersection: Set<T> = this.intersection(other);
         let union: Set<T> = this.union(other);

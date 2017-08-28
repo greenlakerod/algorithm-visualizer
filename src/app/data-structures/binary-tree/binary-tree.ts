@@ -67,12 +67,12 @@ export abstract class BinaryTree<T> implements IBinaryTree {
             //node = null;
         }
     }
-    protected traverseInOrder(node: BinaryTreeNode<T>, nodes: Array<T>, recursive: boolean): void {
+    protected traverseInOrder(node: BinaryTreeNode<T>, output: Array<T>, recursive: boolean): void {
         if (node) {
             if (recursive) {
-                this.traverseInOrder(node.left, nodes, recursive);
-                nodes.push(node.value);
-                this.traverseInOrder(node.right, nodes, recursive);
+                this.traverseInOrder(node.left, output, recursive);
+                output.push(node.value);
+                this.traverseInOrder(node.right, output, recursive);
             } else {
                 let stack: LinkedListStack<BinaryTreeNode<T>> = new LinkedListStack<BinaryTreeNode<T>>();
                 let n: BinaryTreeNode<T> = node;
@@ -84,7 +84,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
                     }
                     if (stack.size > 0) {
                         n = stack.pop();
-                        nodes.push(n.value);
+                        output.push(n.value);
 
                         n = n.right;
                     }
@@ -92,12 +92,12 @@ export abstract class BinaryTree<T> implements IBinaryTree {
             }
         }
     }
-    protected traversePreOrder(node: BinaryTreeNode<T>, nodes: Array<T>, recursive: boolean): void {
+    protected traversePreOrder(node: BinaryTreeNode<T>, output: Array<T>, recursive: boolean): void {
         if (node) {
             if (recursive) {
-                nodes.push(node.value);
-                this.traversePreOrder(node.left, nodes, recursive);
-                this.traversePreOrder(node.right, nodes, recursive);
+                output.push(node.value);
+                this.traversePreOrder(node.left, output, recursive);
+                this.traversePreOrder(node.right, output, recursive);
             } else {
                 let stack: LinkedListStack<BinaryTreeNode<T>> = new LinkedListStack<BinaryTreeNode<T>>();
                 let n: BinaryTreeNode<T> = node;
@@ -105,7 +105,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
                 do {
                     while (n) {
                         stack.push(n);
-                        nodes.push(n.value);
+                        output.push(n.value);
 
                         n = n.left;
                     }
@@ -117,12 +117,12 @@ export abstract class BinaryTree<T> implements IBinaryTree {
             }
         }
     }
-    protected traversePostOrder(node: BinaryTreeNode<T>, nodes: Array<T>, recursive: boolean): void {
+    protected traversePostOrder(node: BinaryTreeNode<T>, output: Array<T>, recursive: boolean): void {
         if (node) {
             if (recursive) {
-                this.traversePostOrder(node.left, nodes, recursive);
-                this.traversePostOrder(node.right, nodes, recursive);
-                nodes.push(node.value);
+                this.traversePostOrder(node.left, output, recursive);
+                this.traversePostOrder(node.right, output, recursive);
+                output.push(node.value);
             } else {
                 let stack: LinkedListStack<BinaryTreeNode<T>> = new LinkedListStack<BinaryTreeNode<T>>();
                 let n: BinaryTreeNode<T> = node;
@@ -136,7 +136,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
                     while (!n && stack.size > 0) {
                         n = stack.peek();
                         if (!n.right || n.right == prev) {
-                            nodes.push(n.value);
+                            output.push(n.value);
                             stack.pop();
 
                             prev = n;
@@ -149,18 +149,18 @@ export abstract class BinaryTree<T> implements IBinaryTree {
             }
         }
     }  
-    protected traverseLevelOrder(node: BinaryTreeNode<T>, nodes: Array<T>, recursive: boolean): void {
+    protected traverseLevelOrder(node: BinaryTreeNode<T>, output: Array<T>, recursive: boolean): void {
         for (let i = 1; i <= this.height; i++) {
-            this.printLevel(this._root, nodes, i);
+            this._traverseLevelOrder(this._root, output, i);
         }
     }
-    protected printLevel(node: BinaryTreeNode<T>, nodes: Array<T>, level: number): void {
+    protected _traverseLevelOrder(node: BinaryTreeNode<T>, output: Array<T>, level: number): void {
         if (node) {
             if (level === 1) {
-                nodes.push(node.value);
+                output.push(node.value);
             } else if (level > 1) {
-                this.printLevel(node.left, nodes, level - 1);
-                this.printLevel(node.right, nodes, level - 1);
+                this._traverseLevelOrder(node.left, output, level - 1);
+                this._traverseLevelOrder(node.right, output, level - 1);
             }
         }
     }

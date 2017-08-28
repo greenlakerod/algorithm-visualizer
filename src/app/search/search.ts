@@ -1,3 +1,5 @@
+//http://www.geeksforgeeks.org/searching-algorithms/
+
 export interface ISearchResult {
     startIndex: number;
 }

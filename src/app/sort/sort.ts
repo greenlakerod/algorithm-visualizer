@@ -1,3 +1,6 @@
+//https://www.cs.cmu.edu/~adamchik/15-121/lectures/Sorting%20Algorithms/sorting.html
+//https://www.toptal.com/developers/sorting-algorithms
+
 export interface ISortResult {
     comparisons: number;
     swaps: number;

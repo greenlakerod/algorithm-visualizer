@@ -25,3 +25,5 @@ Progressive Web Apps tutorial:
     http://gethead.info/
     http://realfavicongenerator.net
     https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html (http://bit.ly/conf-web-app)
+
+Various training resources: http://www.geeksforgeeks.org/top-10-algorithms-in-interview-questions/
