@@ -24,11 +24,7 @@
             <div class="form-group">
                 <label>Algorithm:</label>
                 <select class="form-control" #algorithm (change)="onAlgorithmTypeChange($event.target.value)">
-                    <option value="bubble" selected>Bubble Sort</option>
-                    <option value="insertion">Insertion Sort</option>
-                    <option value="merge">Merge Sort</option>
-                    <option value="quick">Quick Sort</option>
-                    <option value="selection">Selection Sort</option>
+                    <option *ngFor="let option of algorithmOptions" [value]="option.name" [selected]="sortType === option.name">{{option.label}}</option>
                 </select>
             </div>
             <div class="form-group">

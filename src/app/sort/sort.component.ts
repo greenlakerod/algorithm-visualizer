@@ -1,10 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ISortResult, ISortAlgorithm} from "./sort";
-import {BubbleSort} from "./bubble-sort";
-import {InsertionSort} from "./insertion-sort";
-import {MergeSort} from "./merge-sort";
-import {QuickSort} from "./quick-sort";
-import {SelectionSort} from "./selection-sort";
+import {SortAlgorithmFactory} from "./sort-algorithm.factory";
 
 @Component({
     selector: "sort",
@@ -15,7 +11,7 @@ export class SortComponent implements OnInit {
     private _dataType: string = "number";
     public get dataType(): string { return this._dataType; }
 
-    private _sortType: string = "bubble";
+    private _sortType: string;
     public get sortType(): string { return this._sortType; }
 
     private _unsortedItems: Array<any>;
@@ -28,9 +24,14 @@ export class SortComponent implements OnInit {
     public get sortResult(): ISortResult { return this._sortResult; }
 
     private _algorithm: ISortAlgorithm;
+    public get algorithmOptions(): Array<{ name: string; label: string; }> {
+        return SortAlgorithmFactory.options;
+    }
 
     public ngOnInit(): void {
-        this._algorithm = new BubbleSort();
+        SortAlgorithmFactory.initialize();
+        this._sortType = SortAlgorithmFactory.options[0].name;
+        this._algorithm = SortAlgorithmFactory[this._sortType];
     }
 
     public generate(count: string | number, sorted: boolean = false): void {
@@ -75,14 +76,7 @@ export class SortComponent implements OnInit {
         this._sortType = type;
         this._sortedItems = null;
         this._sortResult = null;
-
-        switch (type) {
-            case "bubble": this._algorithm = new BubbleSort(); break;
-            case "insertion": this._algorithm = new InsertionSort(); break;
-            case "merge": this._algorithm = new MergeSort(); break;
-            case "quick": this._algorithm = new QuickSort(); break;
-            case "selection": this._algorithm = new SelectionSort(); break;
-        }
+        this._algorithm = SortAlgorithmFactory[type];
     }
 
     public onDataTypeChange(type: string): void { }
