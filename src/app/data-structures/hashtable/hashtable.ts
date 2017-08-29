@@ -23,4 +23,41 @@ export class HashTable<TKey, TValue> {
         // array to grow
         this._maxItemsAtCurrentSize = (initialCapacity * HashTable.fillFactor) + 1;
     }
+
+    /**
+     * Adds the key/value pair to the hash table.  If the key already exists in the
+     * hash table an ArgumentException will be thrown
+     * @param key
+     * @param value
+     */
+    public add(key: TKey, value: TValue): void {
+        // if we are at capacity, the array needs to grow
+        if (this._count >= this._maxItemsAtCurrentSize) {
+            //allocate a new array
+            let larger: HashTableArray<TKey, TValue> = new HashTableArray<TKey, TValue>(this._array.capacity * 2);
+
+            //re-add each item
+            this._array.items.forEach((item) => {
+                larger.add(item.key, item.value);
+            });
+
+            //the larger array is now the storage
+            this._array = larger;
+
+            //update the max size
+            this._maxItemsAtCurrentSize = (this._array.capacity * HashTable.fillFactor) + 1;
+        }
+            
+        this._array.add(key, value);
+        this._count++;
+    }
+
+    public remove(key: TKey): boolean {
+        let removed = this._array.remove(key);
+        if (removed) {
+            this._count--;
+        }
+
+        return removed;
+    }
 }
