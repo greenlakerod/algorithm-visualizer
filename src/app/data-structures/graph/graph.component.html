@@ -5,25 +5,38 @@
     <form class="form-inline">
         <div class="form-row">
             <div class="form-group">
-                <label>#Vertices:</label>
+                <label>Vertex Count:</label>
                 <input class="form-control" #numvertices />
                 <button type="button" class="btn btn-default-outline" (click)="add(numvertices.value); numvertices.value='';">Add</button>
+                <button type="button" class="btn btn-default-outline" (click)="clear(); numvertices.value='';">Clear</button>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="items && items.length > 0">
+            <div class="form-group">
+                <label>Connect Vertex:  </label>
+                <input class="form-control" #vertex type="number" min="1" [max]="items.length" />
+            </div>
+            <div class="form-group">
+                <div *ngFor="let item of items; let i = index" style="display: inline;">
+                    <label [for]="'ck'+ (i + 1)">{{i + 1}}</label>
+                    <input class="form-control" type="checkbox" [id]="'ck'+(i+1)" />
+                </div>
             </div>
         </div>
     </form>
     <div class="container">
         <div class="row">
             <!-- Tree View -->
-            <div id="tree-view" class="col-md-6">&nbsp;</div>
+            <div id="tree-view" class="col-md-4">&nbsp;</div>
             <!-- Grid View -->
-            <div id="grid-view" *ngIf="items && items.length > 0" class="col-md-6">
+            <div id="grid-view" *ngIf="items && items.length > 0" class="col-md-4">
                 <div class="row">
-                    <div class="col-md-2 col- array queue-node first-row">&nbsp;</div>
-                    <div *ngFor="let item of items; let i = index" class="col-md-2 col- array queue-node first-row">{{(i + 1)}}</div>
+                    <div class="col-md-1 col- array queue-node">&nbsp;</div>
+                    <div *ngFor="let item of items; let i = index" class="col-md-1 col- array queue-node">{{(i + 1)}}</div>
                 </div>
                 <div *ngFor="let item of items; let i = index" class="row">
-                    <div class="col-md-2 col- array queue-node">{{(i + 1)}}</div>
-                    <div *ngFor="let itm of items; let j = index" class="col-md-2 col- array queue-node">&nbsp;</div>
+                    <div class="col-md-1 col- array queue-node">{{(i + 1)}}</div>
+                    <div *ngFor="let itm of items; let j = index" class="col-md-1 col- array queue-node">&nbsp;</div>
                 </div>
             </div>
         </div>

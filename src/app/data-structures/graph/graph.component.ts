@@ -24,4 +24,13 @@ export class GraphComponent implements OnInit {
             this._graph.addVertex(i);
         }
     }
+
+    public clear(): void {
+        for (let i = 0; i < this._graph.count; i++) {
+            let vertex = this._graph.adjacencyMatrix[i];
+            vertex.clear();
+        }
+
+        this._graph = new Graph();
+    }
 }
