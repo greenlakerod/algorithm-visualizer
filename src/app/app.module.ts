@@ -19,6 +19,7 @@ import {StackComponent} from "./data-structures/stack/stack.component";
 import {ArraySearchComponent} from "./search/array-search.component";
 import {StringSearchComponent} from "./search/string-search.component";
 import {SortComponent} from "./sort/sort.component";
+import {GraphComponent} from "./data-structures/graph/graph.component";
 
 import {WebWorkerService} from "angular2-web-worker/web-worker.service";
 //import {WebWorkerService} from "angular2-web-worker/web-worker.service";
@@ -31,7 +32,7 @@ import {WebWorkerService} from "angular2-web-worker/web-worker.service";
   bootstrap: [AppComponent],
   declarations: [AppComponent, BinaryTreeComponent, LinkedListComponent, 
                  QueueComponent, SearchComponent, StackComponent, ArraySearchComponent,
-                 StringSearchComponent, SortComponent //,
+                 StringSearchComponent, SortComponent, GraphComponent //,
                   //DashboardComponent, HeroesComponent, HeroDetailComponent
                 ],
   imports: [

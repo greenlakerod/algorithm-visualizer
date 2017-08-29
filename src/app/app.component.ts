@@ -6,7 +6,7 @@ import {Component} from "@angular/core";
     templateUrl: "./app.component.html"
 })
 export class AppComponent {
-    public title: string = "Algorithms & Data Structures";
+    public title: string = "Algorithms";
     public activeRoute: string = "/linked-list";
 
     public routes: Array<{ route: string; label: string; }> = [
@@ -14,6 +14,7 @@ export class AppComponent {
         { route: "/linked-list", label: "Linked List" }, 
         { route: "/queue", label: "Queue" },  
         { route: "/stack", label: "Stack" },
+        { route: "/graph", label: "Graph" },
         { route: "/search", label: "Search" },
         { route: "/sort", label: "Sort" }
     ];

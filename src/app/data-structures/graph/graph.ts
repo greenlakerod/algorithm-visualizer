@@ -8,7 +8,7 @@ export class Graph {
     public get count(): number { return this._adjacencyMatrix.length; }
     public get adjacencyMatrix(): Array<LinkedList<number>> { return this._adjacencyMatrix; }
 
-    constructor(count: number) {
+    constructor(count?: number) {
         if (count !== undefined) {
             this._adjacencyMatrix = new Array<LinkedList<number>>(count);
         } else {
