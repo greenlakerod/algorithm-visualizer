@@ -16,7 +16,7 @@ export class Graph {
         }
     }
 
-    public addVertex(vertex?: number) {
+    public addVertex(vertex?: number): void {
         if (vertex != undefined) {
             if (!this._adjacencyMatrix[vertex]) {
                 this._adjacencyMatrix[vertex] = new LinkedList<number>();
@@ -25,7 +25,7 @@ export class Graph {
             this._adjacencyMatrix.push(new LinkedList<number>());
         }
     }
-    public addEdge(vertex: number, adjacentVertex: number) {
+    public addEdge(vertex: number, adjacentVertex: number): void {
         if (!this._adjacencyMatrix[vertex]) {
             throw `No vertex '${vertex}' exists`;
         }
@@ -37,9 +37,29 @@ export class Graph {
             this._adjacencyMatrix[vertex].addLast(adjacentVertex);
 
             //for now, undirected. so add a reference the other way
-            this.addEdge(adjacentVertex, vertex);
+            if (adjacentVertex != vertex) {
+                this.addEdge(adjacentVertex, vertex);
+            }
         }
     }
+    public removeEdge(vertex: number, adjacentVertex: number): void {
+        if (!this._adjacencyMatrix[vertex]) {
+            throw `No vertex '${vertex}' exists`;
+        }
+        if (!this._adjacencyMatrix[adjacentVertex]) {
+            throw `No vertex '${adjacentVertex}' exists`;
+        }
+
+        if (!this._adjacencyMatrix[vertex].contains(adjacentVertex)) {
+            this._adjacencyMatrix[vertex].remove(adjacentVertex);
+
+            //for now, undirected. so remove the edge from the adjacent vertex as well
+            if (adjacentVertex != vertex) {
+                this.removeEdge(adjacentVertex, vertex);
+            }
+        }
+    }
+
     public traverseBreadthFirst(vertex: number): Array<number> {
         let output: Array<number> = [];
 

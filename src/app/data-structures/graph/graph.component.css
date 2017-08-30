@@ -12,3 +12,7 @@
 #grid-view .row:last-child .queue-node {
     border-bottom-width: 2px;
 }
+
+#grid-view .row .queue-node.edge {
+    background-color: blue;
+}
