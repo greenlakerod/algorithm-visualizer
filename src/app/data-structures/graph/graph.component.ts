@@ -52,8 +52,8 @@ export class GraphComponent implements OnInit {
             this._graph.addEdge(parseInt(vertex), parseInt(adjacentVertex));
 
             if (adjacentVertex != vertex) {
-                // let adjacentElement = document.getElementById("grid-view").querySelectorAll(`#${adjacentVertex}_${vertex}`);
-                // adjacentElement[0].classList.add("edge");
+                // let adjacentElement = document.querySelector(`#${adjacentVertex}_${vertex}`);
+                // adjacentElement.classList.add("edge");
                 $(`#${adjacentVertex}_${vertex}`).addClass("edge");
             }
 
@@ -62,8 +62,8 @@ export class GraphComponent implements OnInit {
             this._graph.removeEdge(parseInt(vertex), parseInt(adjacentVertex));
 
             if (adjacentVertex != vertex) {
-                // let adjacentElement = document.getElementById("grid-view").querySelectorAll(`#${adjacentVertex}_${vertex}`);
-                // adjacentElement[0].classList.remove("edge");
+                // let adjacentElement = document.querySelector(`#${adjacentVertex}_${vertex}`);
+                // adjacentElement.classList.remove("edge");
                 $(`#${adjacentVertex}_${vertex}`).removeClass("edge");
             }
         }
