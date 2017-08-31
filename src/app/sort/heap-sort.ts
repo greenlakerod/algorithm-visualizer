@@ -11,22 +11,27 @@ export class HeapSort<T> extends Sorter<T> {
 
     // create a max heap (the value of each node is greater than the value of its left and right children)
     private _maxHeapify(items: Array<T>, length: number, index: number, result: ISortResult): void {
-
         //model it after a binary tree node
         let rootIndex: number = index;
         let leftIndex: number = (2 * index) + 1;
         let rightIndex: number = (2 * index) + 2;
 
-        //set the new "root"
-        if (leftIndex < length && items[leftIndex] > items[rootIndex]) {
-            rootIndex = leftIndex;
-        }
-        result.comparisons++;
+        console.log(`maxHeapify: [${items}], initial root: {index: ${index}, value: ${items[index]}}, left: {index: ${leftIndex}, value: ${items[leftIndex]}}, right: {index: ${rightIndex}, value: ${items[rightIndex]}}`);
 
-        if (rightIndex < length && items[rightIndex] > items[rootIndex]) {
-            rootIndex = rightIndex;
+        //set the new "root"
+        if (leftIndex < length) {
+            if (items[leftIndex] > items[rootIndex]) {
+                rootIndex = leftIndex;
+                result.comparisons++;
+            }
         }
-        result.comparisons++;
+
+        if (rightIndex < length) {
+            if (items[rightIndex] > items[rootIndex]) {
+                rootIndex = rightIndex;
+                result.comparisons++;
+            }
+        }
 
         if (rootIndex != index) {
             this._swap(items, index, rootIndex);
@@ -37,6 +42,8 @@ export class HeapSort<T> extends Sorter<T> {
     }
 
     private _sort(items: Array<T>, length: number, result: ISortResult): void {
+        let range: Array<T> = items.slice(0, length);
+        console.log(`sort: [${range}]`);
 
         // Build heap (rearrange array)
         // start with the left half the array
