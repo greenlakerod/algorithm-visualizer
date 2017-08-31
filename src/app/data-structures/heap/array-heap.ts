@@ -43,10 +43,6 @@ export class ArrayHeap extends Heap {
         }
     }
 
-    public minHeapify(): void {
-        
-    }
-
     public heapify(index: number, length: number, items: Array<number> = this._items, sortResult?: ISortResult): void {
         let rootIndex = index;
         let leftIndex = this._getLeftChildIndex(index);
