@@ -49,15 +49,17 @@ export class MergeSort<T> extends Sorter<T> {
             rightSize = items.length - leftSize;
             console.log(`sort (${iteration}): leftSize: ${leftSize}, rightSize: ${rightSize}`);
 
+            //divide the array in half and put contents into two new arrays
             let left: Array<T> = []; //= new Array<T>(leftSize);
             let right: Array<T> = []; //= new Array<T>(rightSize); 
-
             this._copyArray(items, 0, leftSize, left);
             this._copyArray(items, leftSize, leftSize + rightSize, right);
 
+            //repeat - this eventually leads to arrays of length 1
             this._sort(iteration + 1, left, result);
             this._sort(iteration + 1, right, result);
 
+            //merge the two halves
             this._merge(iteration, items, left, right, result);
         } else {
             console.log(`sort (${iteration}): leftSize: ${leftSize}, rightSize: ${rightSize}`);

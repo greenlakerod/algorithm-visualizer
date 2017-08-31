@@ -39,12 +39,15 @@ export class HeapSort<T> extends Sorter<T> {
     private _sort(items: Array<T>, length: number, result: ISortResult): void {
 
         // Build heap (rearrange array)
+        // start with the left half the array
+        // this moves larger values to the right, if necessary
         let maxIndex: number = Math.round(length / 2) - 1;
         for (let i = maxIndex; i >= 0; i--) {
             this._maxHeapify(items, length, i, result);
         }
 
         // One by one extract an element from heap
+        // now do the entire array
         for (let i = length - 1; i >= 0; i--) {
 
             // Move current root to end
