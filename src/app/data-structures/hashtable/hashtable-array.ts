@@ -55,6 +55,9 @@ export class HashTableArray<TKey, TValue> implements IHashTableArray {
             node.clear();
         });
     }
+    public tryGetValue(key: TKey, value: { value?: TValue }): boolean {
+        return this._array[this.getIndex(key)].tryGetValue(key, value);
+    }
 
     private getIndex(key: TKey): number {
         return Math.abs(hash(key) % this.capacity);

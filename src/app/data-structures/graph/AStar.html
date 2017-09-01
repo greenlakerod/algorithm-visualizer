@@ -1,0 +1,891 @@
+<html>
+
+<head></head>
+
+<body>
+    <article id="post-138218" class="post-138218 post type-post status-publish format-standard hentry category-algorithm">
+        <header class="entry-header">
+            <h1 class="entry-title">A* Search Algorithm</h1>
+
+        </header>
+        <!-- .entry-header -->
+
+        <div class="entry-content">
+            <p><strong>Motivation</strong><br /> To approximate the shortest path in real-life situations, like- in maps, games where there can be many hindrances.</p>
+            <p>We can consider a 2D Grid having several obstacles and we start from a source cell (coloured green below) to reach towards a goal cell (coloured red below)</p>
+            <p>
+                <a href="http://www.geeksforgeeks.org/wp-content/uploads/APathFinding.png"><img src="http://www.geeksforgeeks.org/wp-content/uploads/APathFinding.png" alt="A*PathFinding" width="451" height="263" class="aligncenter size-full wp-image-138219" srcset="http://www.geeksforgeeks.org/wp-content/uploads/APathFinding.png 451w, http://www.geeksforgeeks.org/wp-content/uploads/APathFinding-300x175.png 300w"
+                        sizes="(max-width: 451px) 100vw, 451px" /></a>
+            </p>
+            <p><strong>What is A* Search Algorithm?</strong><br /> A* Search algorithm is one of the best and popular technique used in path-finding and graph traversals.</p>
+            <p><strong>Why A* Search Algorithm ?</strong><br /> Informally speaking, A* Search algorithms, unlike other traversal techniques, it has “brains”. What it means is that it is really a smart algorithm which separates it from the other conventional
+                algorithms. This fact is cleared in detail in below sections.<br /> And it is also worth mentioning that many games and web-based maps use this algorithm to find the shortest path very efficiently (approximation).</p>
+            <p><strong>Explanation</strong><br /> Consider a square grid having many obstacles and we are given a starting cell and a target cell. We want to reach the target cell (if possible) from the starting cell as quickly as possible. Here A* Search
+                Algorithm comes to the rescue.</p>
+            <p>What A* Search Algorithm does is that at each step it picks the node according to a value-‘<strong>f</strong>’ which is a parameter equal to the sum of two other parameters &#8211; ‘<strong>g</strong>’ and ‘<strong>h</strong>’. At each step
+                it picks the node/cell having the lowest ‘<strong>f</strong>’, and process that node/cell.</p>
+            <p>We define ‘<strong>g</strong>’ and ‘<strong>h</strong>’ as simply as possible below</p>
+            <p><strong>g</strong> = the movement cost to move from the starting point to a given square on the grid, following the path generated to get there.<br />
+                <strong>h</strong> = the estimated movement cost to move from that given square on the grid to the final destination. This is often referred to as the heuristic, which is nothing but a kind of smart guess. We really don’t know the actual
+                distance until we find the path, because all sorts of things can be in the way (walls, water, etc.). There can be many ways to calculate this ‘h’ which are discussed in the later sections.</p>
+            <p><strong>Algorithm</strong><br /> We create two lists – Open List and Closed List (just like Dijkstra Algorithm)</p>
+            <pre>
+// A* Search Algorithm
+1.  Initialize the open list
+2.  Initialize the closed list
+    put the starting node on the open 
+    list (you can leave its <strong>f</strong> at zero)
+
+3.  while the open list is not empty
+    a) find the node with the least <strong>f</strong> on 
+       the open list, call it "q"
+
+    b) pop q off the open list
+  
+    c) generate q's 8 successors and set their 
+       parents to q
+   
+    d) for each successor
+    	i) if successor is the goal, stop search
+          successor.<strong>g</strong> = q.<strong>g</strong> + distance between 
+                              successor and q
+          successor.<strong>h</strong> = distance from goal to 
+          successor (This can be done using many 
+          ways, we will discuss three heuristics- 
+          Manhattan, Diagonal and Euclidean 
+          Heuristics)
+          
+          successor.<strong>f</strong> = successor.<strong>g</strong> + successor.<strong>h</strong>
+
+        ii) if a node with the same position as 
+            successor is in the OPEN list which has a 
+           lower <strong>f</strong> than successor, skip this successor
+
+        iii) if a node with the same position as 
+            successor  is in the CLOSED list which has
+            a lower <strong>f</strong> than successor, skip this successor
+            otherwise, add  the node to the open list
+     end (for loop)
+  
+    e) push q on the closed list
+    end (while loop) </pre>
+            <p>So suppose as in the below figure if we want to reach the target cell from the source cell, then the A* Search algorithm would follow path as shown below. Note that the below figure is made by considering Euclidean Distance as a heuristics.</p>
+            <p>
+                <a href="http://www.geeksforgeeks.org/wp-content/uploads/A_Star_Search.png"><img src="http://www.geeksforgeeks.org/wp-content/uploads/A_Star_Search-1024x417.png" alt="A_Star_Search" width="665" height="271" class="aligncenter size-large wp-image-138220" srcset="http://www.geeksforgeeks.org/wp-content/uploads/A_Star_Search-1024x417.png 1024w, http://www.geeksforgeeks.org/wp-content/uploads/A_Star_Search-300x122.png 300w, http://www.geeksforgeeks.org/wp-content/uploads/A_Star_Search-660x269.png 660w, http://www.geeksforgeeks.org/wp-content/uploads/A_Star_Search.png 1352w"
+                        sizes="(max-width: 665px) 100vw, 665px" /></a>
+            </p>
+            <p><strong>Heuristics</strong><br /> We can calculate <strong>g</strong> but how to calculate h ?</p>
+            <p>We can do things.<br /> A) Either calculate the exact value of h (which is certainly time consuming).<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR<br /> B ) Approximate the value of h using some heuristics
+                (less time consuming).</p>
+            <p>We will discuss both of the methods.</p>
+            <p>A) <strong>Exact Heuristics</strong> &#8211;</p>
+            <p>We can find exact values of h, but that is generally very time consuming.</p>
+            <p>Below are some of the methods to calculate the exact value of h.</p>
+            <p>1) Pre-compute the distance between each pair of cells before running the A* Search Algorithm.</p>
+            <p>2) If there are no blocked cells/obstacles then we can just find the exact value of h without any pre-computation using the <a href="https://en.wikipedia.org/wiki/Euclidean_distance">distance formula/Euclidean Distance</a></p>
+            <p><strong>B) Approximation Heuristics &#8211; </strong></p>
+            <p> There are generally three approximation heuristics to calculate h &#8211;</p>
+            <p><strong>1) Manhattan Distance &#8211;</strong></p>
+            <ul>
+                <li> It is nothing but the sum of absolute values of differences in the goal’s x and y coordinates and the current cell’s x and y coordinates respectively, i.e.,</p>
+                    <pre>
+ <strong>h</strong> = abs (current_cell.x – goal.x) + 
+     abs (current_cell.y – goal.y) </pre>
+                </li>
+                <li> When to use this heuristic? – When we are allowed to move only in four directions only (right, left, top, bottom)</li>
+            </ul>
+            <p>The Manhattan Distance Heuristics is shown by the below figure (assume green spot as source cell and red spot as target cell).<br />
+                <a href="http://www.geeksforgeeks.org/wp-content/uploads/Manhattan_Heuristics.png"><img src="http://www.geeksforgeeks.org/wp-content/uploads/Manhattan_Heuristics-1024x479.png" alt="Manhattan_Heuristics" width="665" height="311" class="aligncenter size-large wp-image-138222" srcset="http://www.geeksforgeeks.org/wp-content/uploads/Manhattan_Heuristics-1024x479.png 1024w, http://www.geeksforgeeks.org/wp-content/uploads/Manhattan_Heuristics-300x140.png 300w, http://www.geeksforgeeks.org/wp-content/uploads/Manhattan_Heuristics-660x309.png 660w, http://www.geeksforgeeks.org/wp-content/uploads/Manhattan_Heuristics.png 1097w"
+                        sizes="(max-width: 665px) 100vw, 665px" /></a>
+            </p>
+            <p><strong>2) Diagonal Distance-</strong></p>
+            <ul>
+                <li> It is nothing but the maximum of absolute values of differences in the goal’s x and y coordinates and the current cell’s x and y coordinates respectively, i.e.,
+                    <pre>
+ <strong>h</strong> = max { abs(current_cell.x – goal.x),
+           abs(current_cell.y – goal.y) } </pre>
+                </li>
+                <li> When to use this heuristic? – When we are allowed to move in eight directions only (similar to a move of a King in Chess)</li>
+            </ul>
+            <p>The Diagonal Distance Heuristics is shown by the below figure (assume green spot as source cell and red spot as target cell).</p>
+            <p>
+                <a href="http://www.geeksforgeeks.org/wp-content/uploads/Diagonal_Heuristics.png"><img src="http://www.geeksforgeeks.org/wp-content/uploads/Diagonal_Heuristics.png" alt="Diagonal_Heuristics" width="881" height="478" class="aligncenter size-full wp-image-138223" srcset="http://www.geeksforgeeks.org/wp-content/uploads/Diagonal_Heuristics.png 881w, http://www.geeksforgeeks.org/wp-content/uploads/Diagonal_Heuristics-300x163.png 300w, http://www.geeksforgeeks.org/wp-content/uploads/Diagonal_Heuristics-660x358.png 660w"
+                        sizes="(max-width: 881px) 100vw, 881px" /></a>
+            </p>
+            <p><strong>3) Euclidean Distance-</strong></p>
+            <ul>
+                <li> As it is clear from its name, it is nothing but the distance between the current cell and the goal cell using the distance formula
+                    <pre>
+ <strong>h</strong> = sqrt ( (current_cell.x – goal.x)2 + 
+            (current_cell.y – goal.y)2 ) </pre>
+                    <li> When to use this heuristic? – When we are allowed to move in any directions. </li>
+            </ul>
+            <p>The Euclidean Distance Heuristics is shown by the below figure (assume green spot as source cell and red spot as target cell).</p>
+            <p>
+                <a href="http://www.geeksforgeeks.org/wp-content/uploads/Euclidean_Heuristics.png"><img src="http://www.geeksforgeeks.org/wp-content/uploads/Euclidean_Heuristics.png" alt="Euclidean_Heuristics" width="881" height="478" class="aligncenter size-full wp-image-138221" srcset="http://www.geeksforgeeks.org/wp-content/uploads/Euclidean_Heuristics.png 881w, http://www.geeksforgeeks.org/wp-content/uploads/Euclidean_Heuristics-300x163.png 300w, http://www.geeksforgeeks.org/wp-content/uploads/Euclidean_Heuristics-660x358.png 660w"
+                        sizes="(max-width: 881px) 100vw, 881px" /></a>
+            </p>
+            <p><strong>Relation (Similarity and Differences) with other algorithms-</strong><br /> Dijkstra is a special case of A* Search Algorithm, where h = 0 for all nodes.</p>
+            <p><strong>Implementation</strong><br /> We can use any data structure to implement open list and closed list but for best performance we use a set
+                <> data structure of C++ STL(implemented as Red-Black Tree) and a boolean hash table for a closed list.</p>
+            <p>The implementations are similar to Dijsktra’s algorithm. If we use a Fibonacci heap to implement the open list instead of a binary heap/self-balancing tree, then the performance will become better (as Fibonacci heap takes O(1) average time
+                to insert into open list and to decrease key)</p>
+            <p>Also to reduce the time taken to calculate g, we will use dynamic programming.</p>
+            <pre class="brush: cpp; title: ; notranslate" title="">
+// A C++ Program to implement A* Search Algorithm
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define ROW 9
+#define COL 10
+
+// Creating a shortcut for int, int pair type
+typedef pair&lt;int, int&gt; Pair;
+
+// Creating a shortcut for pair&lt;int, pair&lt;int, int&gt;&gt; type
+typedef pair&lt;double, pair&lt;int, int&gt;&gt; pPair;
+
+// A structure to hold the neccesary parameters
+struct cell
+{
+    // Row and Column index of its parent
+    // Note that 0 &lt;= i &lt;= ROW-1 &amp; 0 &lt;= j &lt;= COL-1
+    int parent_i, parent_j;
+    // f = g + h
+    double f, g, h;
+};
+
+// A Utility Function to check whether given cell (row, col)
+// is a valid cell or not.
+bool isValid(int row, int col)
+{
+    // Returns true if row number and column number
+    // is in range
+    return (row &gt;= 0) &amp;&amp; (row &lt; ROW) &amp;&amp;
+           (col &gt;= 0) &amp;&amp; (col &lt; COL);
+}
+
+// A Utility Function to check whether the given cell is
+// blocked or not
+bool isUnBlocked(int grid[][COL], int row, int col)
+{
+    // Returns true if the cell is not blocked else false
+    if (grid[row][col] == 1)
+        return (true);
+    else
+        return (false);
+}
+
+// A Utility Function to check whether destination cell has
+// been reached or not
+bool isDestination(int row, int col, Pair dest)
+{
+    if (row == dest.first &amp;&amp; col == dest.second)
+        return (true);
+    else
+        return (false);
+}
+
+// A Utility Function to calculate the 'h' heuristics.
+double calculateHValue(int row, int col, Pair dest)
+{
+    // Return using the distance formula
+    return ((double)sqrt ((row-dest.first)*(row-dest.first)
+                          + (col-dest.second)*(col-dest.second)));
+}
+
+// A Utility Function to trace the path from the source
+// to destination
+void tracePath(cell cellDetails[][COL], Pair dest)
+{
+    printf (&quot;\nThe Path is &quot;);
+    int row = dest.first;
+    int col = dest.second;
+
+    stack&lt;Pair&gt; Path;
+
+    while (!(cellDetails[row][col].parent_i == row
+             &amp;&amp; cellDetails[row][col].parent_j == col ))
+    {
+        Path.push (make_pair (row, col));
+        int temp_row = cellDetails[row][col].parent_i;
+        int temp_col = cellDetails[row][col].parent_j;
+        row = temp_row;
+        col = temp_col;
+    }
+
+    Path.push (make_pair (row, col));
+    while (!Path.empty())
+    {
+        pair&lt;int,int&gt; p = Path.top();
+        Path.pop();
+        printf(&quot;-&gt; (%d,%d) &quot;,p.first,p.second);
+    }
+
+    return;
+}
+
+// A Function to find the shortest path between
+// a given source cell to a destination cell according
+// to A* Search Algorithm
+void aStarSearch(int grid[][COL], Pair src, Pair dest)
+{
+    // If the source is out of range
+    if (isValid (src.first, src.second) == false)
+    {
+        printf (&quot;Source is invalid\n&quot;);
+        return;
+    }
+
+    // If the destination is out of range
+    if (isValid (dest.first, dest.second) == false)
+    {
+        printf (&quot;Destination is invalid\n&quot;);
+        return;
+    }
+
+    // Either the source or the destination is blocked
+    if (isUnBlocked(grid, src.first, src.second) == false ||
+            isUnBlocked(grid, dest.first, dest.second) == false)
+    {
+        printf (&quot;Source or the destination is blocked\n&quot;);
+        return;
+    }
+
+    // If the destination cell is the same as source cell
+    if (isDestination(src.first, src.second, dest) == true)
+    {
+        printf (&quot;We are already at the destination\n&quot;);
+        return;
+    }
+
+    // Create a closed list and initialise it to false which means
+    // that no cell has been included yet
+    // This closed list is implemented as a boolean 2D array
+    bool closedList[ROW][COL];
+    memset(closedList, false, sizeof (closedList));
+
+    // Declare a 2D array of structure to hold the details
+    //of that cell
+    cell cellDetails[ROW][COL];
+
+    int i, j;
+
+    for (i=0; i&lt;ROW; i++)
+    {
+        for (j=0; j&lt;COL; j++)
+        {
+            cellDetails[i][j].f = FLT_MAX;
+            cellDetails[i][j].g = FLT_MAX;
+            cellDetails[i][j].h = FLT_MAX;
+            cellDetails[i][j].parent_i = -1;
+            cellDetails[i][j].parent_j = -1;
+        }
+    }
+
+    // Initialising the parameters of the starting node
+    i = src.first, j = src.second;
+    cellDetails[i][j].f = 0.0;
+    cellDetails[i][j].g = 0.0;
+    cellDetails[i][j].h = 0.0;
+    cellDetails[i][j].parent_i = i;
+    cellDetails[i][j].parent_j = j;
+
+    /*
+     Create an open list having information as-
+     &lt;f, &lt;i, j&gt;&gt;
+     where f = g + h,
+     and i, j are the row and column index of that cell
+     Note that 0 &lt;= i &lt;= ROW-1 &amp; 0 &lt;= j &lt;= COL-1
+     This open list is implenented as a set of pair of pair.*/
+    set&lt;pPair&gt; openList;
+
+    // Put the starting cell on the open list and set its
+    // 'f' as 0
+    openList.insert(make_pair (0.0, make_pair (i, j)));
+
+    // We set this boolean value as false as initially
+    // the destination is not reached.
+    bool foundDest = false;
+
+    while (!openList.empty())
+    {
+        pPair p = *openList.begin();
+
+        // Remove this vertex from the open list
+        openList.erase(openList.begin());
+
+        // Add this vertex to the open list
+        i = p.second.first;
+        j = p.second.second;
+        closedList[i][j] = true;
+     
+       /*
+        Generating all the 8 successor of this cell
+
+            N.W   N   N.E
+              \   |   /
+               \  |  /
+            W----Cell----E
+                 / | \
+               /   |  \
+            S.W    S   S.E
+
+        Cell--&gt;Popped Cell (i, j)
+        N --&gt;  North       (i-1, j)
+        S --&gt;  South       (i+1, j)
+        E --&gt;  East        (i, j+1)
+        W --&gt;  West           (i, j-1)
+        N.E--&gt; North-East  (i-1, j+1)
+        N.W--&gt; North-West  (i-1, j-1)
+        S.E--&gt; South-East  (i+1, j+1)
+        S.W--&gt; South-West  (i+1, j-1)*/
+
+        // To store the 'g', 'h' and 'f' of the 8 successors
+        double gNew, hNew, fNew;
+
+        //----------- 1st Successor (North) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid(i-1, j) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination(i-1, j, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i-1][j].parent_i = i;
+                cellDetails[i-1][j].parent_j = j;
+                printf (&quot;The destination cell is found\n&quot;);
+                tracePath (cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i-1][j] == false &amp;&amp;
+                     isUnBlocked(grid, i-1, j) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.0;
+                hNew = calculateHValue (i-1, j, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i-1][j].f == FLT_MAX ||
+                        cellDetails[i-1][j].f &gt; fNew)
+                {
+                    openList.insert( make_pair(fNew,
+                                               make_pair(i-1, j)));
+
+                    // Update the details of this cell
+                    cellDetails[i-1][j].f = fNew;
+                    cellDetails[i-1][j].g = gNew;
+                    cellDetails[i-1][j].h = hNew;
+                    cellDetails[i-1][j].parent_i = i;
+                    cellDetails[i-1][j].parent_j = j;
+                }
+            }
+        }
+
+        //----------- 2nd Successor (South) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid(i+1, j) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination(i+1, j, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i+1][j].parent_i = i;
+                cellDetails[i+1][j].parent_j = j;
+                printf(&quot;The destination cell is found\n&quot;);
+                tracePath(cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i+1][j] == false &amp;&amp;
+                     isUnBlocked(grid, i+1, j) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.0;
+                hNew = calculateHValue(i+1, j, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i+1][j].f == FLT_MAX ||
+                        cellDetails[i+1][j].f &gt; fNew)
+                {
+                    openList.insert( make_pair (fNew, make_pair (i+1, j)));
+                    // Update the details of this cell
+                    cellDetails[i+1][j].f = fNew;
+                    cellDetails[i+1][j].g = gNew;
+                    cellDetails[i+1][j].h = hNew;
+                    cellDetails[i+1][j].parent_i = i;
+                    cellDetails[i+1][j].parent_j = j;
+                }
+            }
+        }
+
+        //----------- 3rd Successor (East) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid (i, j+1) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination(i, j+1, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i][j+1].parent_i = i;
+                cellDetails[i][j+1].parent_j = j;
+                printf(&quot;The destination cell is found\n&quot;);
+                tracePath(cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i][j+1] == false &amp;&amp;
+                     isUnBlocked (grid, i, j+1) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.0;
+                hNew = calculateHValue (i, j+1, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i][j+1].f == FLT_MAX ||
+                        cellDetails[i][j+1].f &gt; fNew)
+                {
+                    openList.insert( make_pair(fNew,
+                                        make_pair (i, j+1)));
+
+                    // Update the details of this cell
+                    cellDetails[i][j+1].f = fNew;
+                    cellDetails[i][j+1].g = gNew;
+                    cellDetails[i][j+1].h = hNew;
+                    cellDetails[i][j+1].parent_i = i;
+                    cellDetails[i][j+1].parent_j = j;
+                }
+            }
+        }
+
+        //----------- 4th Successor (West) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid(i, j-1) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination(i, j-1, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i][j-1].parent_i = i;
+                cellDetails[i][j-1].parent_j = j;
+                printf(&quot;The destination cell is found\n&quot;);
+                tracePath(cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i][j-1] == false &amp;&amp;
+                     isUnBlocked(grid, i, j-1) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.0;
+                hNew = calculateHValue(i, j-1, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i][j-1].f == FLT_MAX ||
+                        cellDetails[i][j-1].f &gt; fNew)
+                {
+                    openList.insert( make_pair (fNew,
+                                          make_pair (i, j-1)));
+
+                    // Update the details of this cell
+                    cellDetails[i][j-1].f = fNew;
+                    cellDetails[i][j-1].g = gNew;
+                    cellDetails[i][j-1].h = hNew;
+                    cellDetails[i][j-1].parent_i = i;
+                    cellDetails[i][j-1].parent_j = j;
+                }
+            }
+        }
+
+        //----------- 5th Successor (North-East) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid(i-1, j+1) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination(i-1, j+1, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i-1][j+1].parent_i = i;
+                cellDetails[i-1][j+1].parent_j = j;
+                printf (&quot;The destination cell is found\n&quot;);
+                tracePath (cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i-1][j+1] == false &amp;&amp;
+                     isUnBlocked(grid, i-1, j+1) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.414;
+                hNew = calculateHValue(i-1, j+1, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i-1][j+1].f == FLT_MAX ||
+                        cellDetails[i-1][j+1].f &gt; fNew)
+                {
+                    openList.insert( make_pair (fNew, 
+                                    make_pair(i-1, j+1)));
+
+                    // Update the details of this cell
+                    cellDetails[i-1][j+1].f = fNew;
+                    cellDetails[i-1][j+1].g = gNew;
+                    cellDetails[i-1][j+1].h = hNew;
+                    cellDetails[i-1][j+1].parent_i = i;
+                    cellDetails[i-1][j+1].parent_j = j;
+                }
+            }
+        }
+
+        //----------- 6th Successor (North-West) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid (i-1, j-1) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination (i-1, j-1, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i-1][j-1].parent_i = i;
+                cellDetails[i-1][j-1].parent_j = j;
+                printf (&quot;The destination cell is found\n&quot;);
+                tracePath (cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i-1][j-1] == false &amp;&amp;
+                     isUnBlocked(grid, i-1, j-1) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.414;
+                hNew = calculateHValue(i-1, j-1, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i-1][j-1].f == FLT_MAX ||
+                        cellDetails[i-1][j-1].f &gt; fNew)
+                {
+                    openList.insert( make_pair (fNew, make_pair (i-1, j-1)));
+                    // Update the details of this cell
+                    cellDetails[i-1][j-1].f = fNew;
+                    cellDetails[i-1][j-1].g = gNew;
+                    cellDetails[i-1][j-1].h = hNew;
+                    cellDetails[i-1][j-1].parent_i = i;
+                    cellDetails[i-1][j-1].parent_j = j;
+                }
+            }
+        }
+
+        //----------- 7th Successor (South-East) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid(i+1, j+1) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination(i+1, j+1, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i+1][j+1].parent_i = i;
+                cellDetails[i+1][j+1].parent_j = j;
+                printf (&quot;The destination cell is found\n&quot;);
+                tracePath (cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i+1][j+1] == false &amp;&amp;
+                     isUnBlocked(grid, i+1, j+1) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.414;
+                hNew = calculateHValue(i+1, j+1, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i+1][j+1].f == FLT_MAX ||
+                        cellDetails[i+1][j+1].f &gt; fNew)
+                {
+                    openList.insert(make_pair(fNew, 
+                                        make_pair (i+1, j+1)));
+
+                    // Update the details of this cell
+                    cellDetails[i+1][j+1].f = fNew;
+                    cellDetails[i+1][j+1].g = gNew;
+                    cellDetails[i+1][j+1].h = hNew;
+                    cellDetails[i+1][j+1].parent_i = i;
+                    cellDetails[i+1][j+1].parent_j = j;
+                }
+            }
+        }
+
+        //----------- 8th Successor (South-West) ------------
+
+        // Only process this cell if this is a valid one
+        if (isValid (i+1, j-1) == true)
+        {
+            // If the destination cell is the same as the
+            // current successor
+            if (isDestination(i+1, j-1, dest) == true)
+            {
+                // Set the Parent of the destination cell
+                cellDetails[i+1][j-1].parent_i = i;
+                cellDetails[i+1][j-1].parent_j = j;
+                printf(&quot;The destination cell is found\n&quot;);
+                tracePath(cellDetails, dest);
+                foundDest = true;
+                return;
+            }
+
+            // If the successor is already on the closed
+            // list or if it is blocked, then ignore it.
+            // Else do the following
+            else if (closedList[i+1][j-1] == false &amp;&amp;
+                     isUnBlocked(grid, i+1, j-1) == true)
+            {
+                gNew = cellDetails[i][j].g + 1.414;
+                hNew = calculateHValue(i+1, j-1, dest);
+                fNew = gNew + hNew;
+
+                // If it isn’t on the open list, add it to
+                // the open list. Make the current square
+                // the parent of this square. Record the
+                // f, g, and h costs of the square cell
+                //                OR
+                // If it is on the open list already, check
+                // to see if this path to that square is better,
+                // using 'f' cost as the measure.
+                if (cellDetails[i+1][j-1].f == FLT_MAX ||
+                        cellDetails[i+1][j-1].f &gt; fNew)
+                {
+                    openList.insert(make_pair(fNew, 
+                                        make_pair(i+1, j-1)));
+
+                    // Update the details of this cell
+                    cellDetails[i+1][j-1].f = fNew;
+                    cellDetails[i+1][j-1].g = gNew;
+                    cellDetails[i+1][j-1].h = hNew;
+                    cellDetails[i+1][j-1].parent_i = i;
+                    cellDetails[i+1][j-1].parent_j = j;
+                }
+            }
+        }
+    }
+
+    // When the destination cell is not found and the open
+    // list is empty, then we conclude that we failed to
+    // reach the destiantion cell. This may happen when the
+    // there is no way to destination cell (due to blockages)
+    if (foundDest == false)
+        printf(&quot;Failed to find the Destination Cell\n&quot;);
+
+    return;
+}
+
+
+// Driver program to test above function
+int main()
+{
+    /* Description of the Grid-
+     1--&gt; The cell is not blocked
+     0--&gt; The cell is blocked    */
+    int grid[ROW][COL] =
+    {
+        { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+        { 1, 1, 1, 0, 1, 1, 1, 0, 1, 1 },
+        { 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
+        { 0, 0, 1, 0, 1, 0, 0, 0, 0, 1 },
+        { 1, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
+        { 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 },
+        { 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
+        { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+        { 1, 1, 1, 0, 0, 0, 1, 0, 0, 1 }
+    };
+
+    // Source is the left-most bottom-most corner
+    Pair src = make_pair(8, 0);
+
+    // Destination is the left-most top-most corner
+    Pair dest = make_pair(0, 0);
+
+    aStarSearch(grid, src, dest);
+
+    return(0);
+}</pre>
+            <p><strong>Limitations</strong><br /> Although being the best pathfinding algorithm around, A* Search Algorithm doesn’t produce the shortest path always, as it relies heavily on heuristics / approximations to calculate &#8211; h</p>
+            <p><strong>Applications</strong><br /> This is the most interesting part of A* Search Algorithm. They are used in games! But how?</p>
+            <p>Ever played <a href="https://en.wikipedia.org/wiki/Tower_defense">Tower Defense Games</a> ?<br /> Tower defense is a type of strategy video game where the goal is to defend a player&#8217;s territories or possessions by obstructing enemy attackers,
+                usually achieved by placing defensive structures on or along their path of attack. </p>
+            <p>A* Search Algorithm is often used to find the shortest path from one point to another point. You can use this for each enemy to find a path to the goal.</p>
+            <p>One example of this is the very popular game- Warcraft III (see figure below)<br />
+                <a href="http://www.geeksforgeeks.org/wp-content/uploads/Warcraft_3.jpg"><img src="http://www.geeksforgeeks.org/wp-content/uploads/Warcraft_3.jpg" alt="Warcraft_3" width="560" height="420" class="aligncenter size-full wp-image-138224" srcset="http://www.geeksforgeeks.org/wp-content/uploads/Warcraft_3.jpg 560w, http://www.geeksforgeeks.org/wp-content/uploads/Warcraft_3-300x225.jpg 300w"
+                        sizes="(max-width: 560px) 100vw, 560px" /></a>
+            </p>
+            <p><strong>What if the search space is not a grid and is a graph ?</strong></p>
+            <p>The same rules applies there also. The example of grid is taken for the simplicity of understanding. So we can find the shortest path between the source node and the target node in a graph using this A* Search Algorithm, just like we did for
+                a 2D Grid.</p>
+            <p><strong>Time Complexity</strong><br /> Considering a graph, it may take us to travel all the edge to reach the destination cell from the source cell [For example, consider a graph where source and destination nodes are connected by a series
+                of edges, like &#8211; 0(source) &#8211;>1 &#8211;> 2 &#8211;> 3 (target)</p>
+            <p>So the worse case time complexity is O(E), where E is the number of edges in the graph</p>
+            <p><strong>Auxiliary Space </strong> In the worse case we can have all the edges inside the open list, so required auxiliary space in worst case is O(V), where V is the total number of vertices.</p>
+            <p><strong>Exercise to the Readers-</strong><br /> Ever wondered how to make a game like- Pacman where there are many such obstacles. Can we use A* Search Algorithm to find the correct way ?</p>
+            <p>Think about it as a fun exercise.</p>
+            <p>
+                <a href="http://www.geeksforgeeks.org/wp-content/uploads/Pacman.jpg"><img src="http://www.geeksforgeeks.org/wp-content/uploads/Pacman.jpg" alt="Pacman" width="300" height="200" class="aligncenter size-full wp-image-138225" /></a>
+            </p>
+            <p><strong>Articles for interested readers</strong><br /> In our program, the obstacles are fixed. What if the obstacles are moving ? Interested readers may see <a href="http://theory.stanford.edu/~amitp/GameProgramming/MovingObstacles.html#recalculating-paths">here</a>                an excellent discussion on this topic.</p>
+            <p><strong>Summary</strong><br /> So when to use DFS over A*, when to use Dijkstra over A* to find the shortest paths ?<br /> We can summarise this as below-</p>
+            <p>1) One source and One Destination-<br /> &rarr; Use A* Search Algorithm (For Unweighted as well as Weighted Graphs)</p>
+            <p>2) One Source, All Destination &#8211;<br /> &rarr; Use BFS (For Unweighted Graphs)<br /> &rarr; Use Dijkstra (For Weighted Graphs without negative weights)<br /> &rarr; Use Bellman Ford (For Weighted Graphs with negative weights)</p>
+            <p>3) Between every pair of nodes-<br /> &rarr; Floyd-Warshall<br /> &rarr; Johnson’s Algorithm</p>
+            <div id="video">
+                <iframe width="665" height="374" src="https://www.youtube.com/embed/vP5TkF0xJgI?feature=oembed" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p><strong>Related Article:</strong><br />
+                <a href="http://www.geeksforgeeks.org/best-first-search-informed-search/">Best First Search (Informed Search)</a></p>
+            <p><strong>References-</strong><br />
+                <a href="http://theory.stanford.edu/~amitp/GameProgramming/">http://theory.stanford.edu/~amitp/GameProgramming/ </a><br />
+                <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">https://en.wikipedia.org/wiki/A*_search_algorithm </a></p>
+            <p>This article is contributed by <strong>Rachit Belwariar</strong>. If you like GeeksforGeeks and would like to contribute, you can also write an article and mail your article to contribute@geeksforgeeks.org. See your article appearing on the
+                GeeksforGeeks main page and help other Geeks.</p>
+            <p>Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above</p>
+
+            <div class="AdsParent" style="width:100%;">
+                <span class="rectangleAd">
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ Big Rectangle Blog Bottom 
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-9465609616171866"
+     data-ad-slot="4061219431"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- GfGDownLeftNew -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9465609616171866"
+     data-ad-slot="5794942435"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</span>
+                <span class="responsiveAd">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- newMobile2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9465609616171866"
+     data-ad-slot="1950485631"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</span>
+            </div>
+            <h1><strong><a href="http://quiz.geeksforgeeks.org/gate-corner-2/">GATE CS Corner</a>
+&nbsp;&nbsp;&nbsp;<a href="http://practice.geeksforgeeks.org/company-tags">Company Wise Coding Practice</a></strong></h1>
+
+        </div>
+        <!-- .entry-content -->
+
+
+
+        <footer class="entry-meta">
+            <span><div class="categoryButton"><a href="http://www.geeksforgeeks.org/category/algorithm/" rel="category tag">Algorithm</a></div></span> <span></span>
+
+        </footer>
+        <!-- .entry-meta -->
+    </article>
+    <!-- #post -->
+
+</body>
+
+</html>

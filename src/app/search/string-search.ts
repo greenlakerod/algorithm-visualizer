@@ -59,4 +59,32 @@ export class BoyerMooreHorspoolStringSearch extends SearchAlgorithm<string> {
             }
         }
     }
+
+    // function search(haystack, needle) {
+    //     let badMatchTable = {};
+
+    //     // Generate the bad match table, which is the location of offsets
+    //     // to jump forward when a comparison fails
+    //     for (let j = 0; j < needle.length; j++) {
+    //         badMatchTable[needle[j]] = needle.length - 1 - j;
+    //     }
+
+    //     let index = 0;
+
+    //     // Now look for the needle
+    //     while (index <= haystack.length - needle.length) {
+    //         // Search right-to-left, checking to see if the current index at 
+    //         // needle and haystack match.  If they do, rewind 1, repeat, and if we 
+    //         // eventually match the first character, return the index.
+    //         for (var i = needle.length - 1; needle[i] === haystack[i + index]; i--) {
+    //             if (i === 0) {
+    //                 return index;
+    //             }
+    //         }
+
+    //         index += badMatchTable[haystack[index + needle.length - 1]] || needle.length - 1;
+    //     }
+
+    //     return -1;
+    // }
 }

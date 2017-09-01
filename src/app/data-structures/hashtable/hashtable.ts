@@ -60,4 +60,17 @@ export class HashTable<TKey, TValue> {
 
         return removed;
     }
+
+    public getItem(key: TKey): TValue {
+        let value: { value?: TValue };
+        if (!this._array.tryGetValue(key, value)) {
+            throw "key does not exist";
+        }
+
+        return value.value;
+    }
+
+    public setItem(key: TKey, value: TValue): void {
+        this._array.update(key, value);
+    }
 }

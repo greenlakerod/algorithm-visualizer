@@ -5,24 +5,24 @@ export class SelectionSort<T> extends Sorter<T> {
         let result: ISortResult = <ISortResult>{ comparisons: 0, swaps: 0 };
 
         if (items && items.length > 1) {
-            let sortedRangeEnd: number = 0;
-            while (sortedRangeEnd < items.length) {
-                let nextIndex = this._findIndexOfSmallest(items, sortedRangeEnd, result);
-                this._swap(items, sortedRangeEnd, nextIndex);
+            let sortedRangeStart: number = 0;
+            while (sortedRangeStart < items.length) {
+                let nextIndex = this._findIndexOfSmallest(items, sortedRangeStart, result);
+                this._swap(items, sortedRangeStart, nextIndex);
     
                 result.swaps++;
-                sortedRangeEnd++;
+                sortedRangeStart++;
             }
         }
 
         return result;
     }
 
-    private _findIndexOfSmallest(items: Array<T>, sortedRangeEnd: number, result: ISortResult): number {
-        let min = items[sortedRangeEnd];
-        let index = sortedRangeEnd;
+    private _findIndexOfSmallest(items: Array<T>, sortedRangeStart: number, result: ISortResult): number {
+        let min = items[sortedRangeStart];
+        let index = sortedRangeStart;
 
-        for (let i = sortedRangeEnd + 1; i < items.length; i++) {
+        for (let i = sortedRangeStart + 1; i < items.length; i++) {
             if (items[i] < min) {
                 min = items[i];
                 index = i;
