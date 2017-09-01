@@ -62,6 +62,20 @@ export class SortComponent implements OnInit {
         this._unsortedItems = array;
     }
 
+    public addValue(value: string | number): void {
+        this._sortedItems = null;
+        this._sortResult = null;
+
+        if (!this._unsortedItems) {
+            this._unsortedItems = [];
+        }
+
+        value.toString().split(",").forEach((v) => {
+            let val = parseInt(v.toString().trim());
+            this._unsortedItems.push(val);
+        });
+    }
+
     public sort(): void {
         this._sortResult = null;
 

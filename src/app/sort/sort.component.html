@@ -22,6 +22,15 @@
         </div>
         <div class="form-row">
             <div class="form-group">
+                <label>Add Values:</label>
+                <input type="text" class="form-control" #values />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default-outline" (click)="addValue(values.value); values.value = '';">Add</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
                 <label>Algorithm:</label>
                 <select class="form-control" #algorithm (change)="onAlgorithmTypeChange($event.target.value)">
                     <option *ngFor="let option of algorithmOptions" [value]="option.name" [selected]="sortType === option.name">{{option.label}}</option>
