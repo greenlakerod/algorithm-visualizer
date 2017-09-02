@@ -12,3 +12,18 @@ function hasPairEqualToSum(data: Array<number>, sum: number) {
 
     return false;
 }
+
+//given a number, give the string representation of the number
+//e.g 100,715 -> "One Hundred Thousand Seven Hundred Fifteen"
+
+//given an array representation of a binary tree in inorder traversal, rebuild the binary tree
+
+//determine if two rectangles overlap
+
+//given a "regular exression pattern", determine if an input string matches that pattern
+//pattern: 
+// a-zA-Z0-9 (e.g. "a" matches "a")
+// " " matches " "
+// "." matches any one character (e.g. "a", "b", "1"). "a.b" matches "aab", "a1b". does not match "aazb"
+// "*" matches all characters, an indefinite amount of them
+ 
