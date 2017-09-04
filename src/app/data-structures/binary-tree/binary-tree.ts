@@ -55,6 +55,9 @@ export abstract class BinaryTree<T> implements IBinaryTree {
 
         this._treeView = [];
     }
+    public buildTree(nodes: Array<T>, order: "inorder" | "preorder" | "postorder" | "levelorder"): void {
+        this._root = null;
+    }
 
     protected clearTree(node: BinaryTreeNode<T>): void {
         if (node) {
@@ -162,6 +165,28 @@ export abstract class BinaryTree<T> implements IBinaryTree {
                 this._traverseLevelOrder(node.left, output, level - 1);
                 this._traverseLevelOrder(node.right, output, level - 1);
             }
+        }
+    }
+    private _buildTreeInOrder(nodes: Array<T>): void {
+        if (nodes && nodes.length > 0) {
+            let stack: LinkedListStack<BinaryTreeNode<T>> = new LinkedListStack<BinaryTreeNode<T>>();
+            
+            for (let i = 0; i < nodes.length; i++) {
+                let value = nodes[i];
+                let n = new BinaryTreeNode<T>(value);
+
+                if (i == 0) {
+                    this._root = n;
+                }
+
+                if (stack.empty) {
+                    stack.push(n);
+                } 
+
+
+            }
+            
+
         }
     }
 }

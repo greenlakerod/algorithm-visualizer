@@ -6,6 +6,7 @@ export interface IStack {
     pop: () => any;
     peek: () => any;
     clear: () => void;
+    empty: () => boolean;
 }
 
 export abstract class Stack<T> implements IStack {
@@ -16,4 +17,8 @@ export abstract class Stack<T> implements IStack {
     public abstract pop(): T;
     public abstract peek(): T;
     public abstract clear(): void;
+
+    public empty(): boolean {
+        return this.size === 0;
+    }
 }
