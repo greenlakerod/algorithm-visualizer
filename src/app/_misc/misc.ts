@@ -43,7 +43,7 @@ function toString(numString: string): string {
         "9": "Ninety"
     };
     let powers = {
-        "1": "Thousand",  //1,000,000
+        "1": "Thousand",  
         "2": "Million",
         "3": "Billion",
         "4": "Trillion"
@@ -108,6 +108,30 @@ function toString(numString: string): string {
 //given an array representation of a binary tree in inorder traversal, rebuild the binary tree
 
 //determine if two rectangles overlap
+//assume positive x and y axis
+class Point {
+    constructor(public x: number, public y: number) {}
+}
+
+class Rectangle {
+    static overlaps(r1: Rectangle, r2: Rectangle): boolean {
+
+        // If one rectangle is on left side of other
+        if (r1.lowerRight.x < r2.upperLeft.x || r2.lowerRight.x < r1.upperLeft.x) {
+            return false;
+        }
+
+        // If one rectangle is above other
+        if (r1.lowerRight.y < r2.upperLeft.y || r2.lowerRight.y < r1.upperLeft.y) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    constructor(public upperLeft: Point, public lowerRight: Point) {}
+}
+
 
 //given a "regular exression pattern", determine if an input string matches that pattern
 //pattern: 

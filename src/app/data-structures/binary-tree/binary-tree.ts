@@ -179,9 +179,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
                     this._root = n;
                 }
 
-                if (stack.empty) {
-                    stack.push(n);
-                } 
+                
 
 
             }
