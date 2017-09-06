@@ -2,6 +2,7 @@
 
 import {BinaryTree} from "./binary-tree";
 import {BinaryTreeNode} from "./binary-tree-node";
+import {LinkedListStack} from "../stack/linked-list-stack";
 
 export class BinarySearchTree<T> extends BinaryTree<T> {
     public add(value: T): void {
@@ -78,6 +79,9 @@ export class BinarySearchTree<T> extends BinaryTree<T> {
 
         this._treeView = [BinaryTreeNode.convertToTreeViewNode(this._root)];
         console.log(JSON.stringify(this._root));
+    }
+    public buildTree(order: "inorder" | "preorder" | "postorder", nodes: Array<T>, levelOrderNodes?: Array<T>): void {
+        this.clear();
     }
 
     protected _addNode(newNode: BinaryTreeNode<T>, root: BinaryTreeNode<T>): void {
@@ -166,5 +170,110 @@ export class BinarySearchTree<T> extends BinaryTree<T> {
         }
 
         nodePtr.node = node;
+    }
+
+    private _buildTreePostorder(nodes: Array<T>): void {
+        if (nodes && nodes.length > 0) {
+            for (let i = nodes.length - 1; i >= 0; i--) {
+                this.add(nodes[i]);
+            }   
+        }
+    }
+    private _buildTreePreorder(nodes: Array<T>): void {
+        if (nodes && nodes.length > 0) {
+            let stack: LinkedListStack<BinaryTreeNode<T>> = new LinkedListStack<BinaryTreeNode<T>>();
+            
+            for (let i = 0; i < nodes.length; i++) {
+                let n = new BinaryTreeNode<T>(nodes[i]);
+                if (i === 0) {
+                    this._root = n;
+                } else {
+                    let top = stack.peek();
+                    if (top) {
+                        if (top.value > n.value) {
+                            top.left = n;
+                            stack.push(n);
+                        } else {
+                            let popped = stack.pop();
+                            top = stack.peek();
+                            while (top && top.value < n.value) {
+                                popped = stack.pop();
+                                top = stack.peek();
+                            }
+                            popped.right = n;
+                        }
+                    }
+                }
+
+                if (i < nodes.length - 1) {
+                    stack.push(n);
+                }
+            }
+        }
+    }
+
+    /*
+                20
+              /     \
+            8        22
+          /   \
+         4     12
+              /  \
+            10    14
+
+    initial arrays:
+    in[] = {4, 8, 10, 12, 14, 20, 22};
+    level[] = {20, 8, 22, 4, 12, 10, 14};
+
+             20
+           /    \
+          /      \ 
+    {4,8,10,12,14}  {22}  
+
+    for left tree:
+    In[]    = {4, 8, 10, 12, 14}
+    level[] = {8, 4, 12, 10, 14} 
+
+    right tree:
+    In[]    = {22}
+    level[] = {22} 
+    */
+    private _buildTreeInorder(nodes: Array<T>, levelOrderNodes: Array<T>): void {
+        this._root = this._buildInorderLevelOrderTree(nodes, levelOrderNodes, 0, nodes.length - 1);
+    }
+    private _buildInorderLevelOrderTree(nodes: Array<T>, levelOrderNodes: Array<T>, start: number, end: number): BinaryTreeNode<T> {
+        //If start index is more than the end index
+        if (start > end) {
+            return null;
+        }
+        //The first node in level order traversal is root
+        let root: BinaryTreeNode<T> = new BinaryTreeNode<T>(levelOrderNodes[0]);
+
+        //If this node has no children then return
+        if (start != end) {
+            //index of root in Inorder traversal
+            let inorderIndex = nodes.slice(start, end).indexOf(root.value);
+
+            //left subtree
+            let leftLevelNodes = this._buildLevelOrderArray(nodes, levelOrderNodes, inorderIndex);
+
+            //right subtree
+            let rightLevelNodes = this._buildLevelOrderArray(nodes.slice(inorderIndex + 1), levelOrderNodes, levelOrderNodes.length - inorderIndex - 1);
+
+            root.left = this._buildInorderLevelOrderTree(nodes, leftLevelNodes, start, inorderIndex - 1);
+            root.right = this._buildInorderLevelOrderTree(nodes, rightLevelNodes, inorderIndex + 1, end);
+        }
+
+        return root;
+    }
+    private _buildLevelOrderArray(nodes: Array<T>, levelOrderNodes: Array<T>, end: number): Array<T> {
+        let newLevel: Array<T> = [];
+        for (let i = 0; i < levelOrderNodes.length; i++) {
+            if (nodes.slice(0, end - 1).indexOf(levelOrderNodes[i]) >= 0) {
+                newLevel.push(levelOrderNodes[i]);
+            }
+        }
+
+        return newLevel;
     }
 }

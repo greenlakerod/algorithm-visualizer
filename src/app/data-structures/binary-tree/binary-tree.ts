@@ -15,6 +15,7 @@ export interface IBinaryTree {
     find: (value: any) => IBinaryTreeNode;
     clear: () => void;
     traverse: (order: "inorder" | "preorder" | "postorder" | "levelorder", nodes: Array<any>, recursive?: boolean) => void;
+    buildTree: (order: "inorder" | "preorder" | "postorder", nodes: Array<any>, levelOrderNodes?: Array<any>) => void;
 }
 
 export abstract class BinaryTree<T> implements IBinaryTree {
@@ -30,6 +31,7 @@ export abstract class BinaryTree<T> implements IBinaryTree {
     public abstract add(value: T): void;
     public abstract remove(value: T): void;
     public abstract find(value: T): BinaryTreeNode<T>;
+    public abstract buildTree(order: "inorder" | "preorder" | "postorder", nodes: Array<any>, levelOrderNodes?: Array<any>): void;
 
     // depth first: http://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
     // breadth first: http://www.geeksforgeeks.org/?p=2686
@@ -51,12 +53,9 @@ export abstract class BinaryTree<T> implements IBinaryTree {
     }
     public clear(): void {
         this.clearTree(this._root);
-        delete this._root;
-
+        this._root = null; //delete this._root;
+        this._count = 0;
         this._treeView = [];
-    }
-    public buildTree(nodes: Array<T>, order: "inorder" | "preorder" | "postorder" | "levelorder"): void {
-        this._root = null;
     }
 
     protected clearTree(node: BinaryTreeNode<T>): void {
@@ -165,26 +164,6 @@ export abstract class BinaryTree<T> implements IBinaryTree {
                 this._traverseLevelOrder(node.left, output, level - 1);
                 this._traverseLevelOrder(node.right, output, level - 1);
             }
-        }
-    }
-    private _buildTreeInOrder(nodes: Array<T>): void {
-        if (nodes && nodes.length > 0) {
-            let stack: LinkedListStack<BinaryTreeNode<T>> = new LinkedListStack<BinaryTreeNode<T>>();
-            
-            for (let i = 0; i < nodes.length; i++) {
-                let value = nodes[i];
-                let n = new BinaryTreeNode<T>(value);
-
-                if (i == 0) {
-                    this._root = n;
-                }
-
-                
-
-
-            }
-            
-
         }
     }
 }

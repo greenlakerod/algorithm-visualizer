@@ -19,7 +19,7 @@ export interface ILinkedList {
     copyTo: (array: Array<any>, arrayIndex?: number) => void;
     reverse: () => void;
 
-    nodes: Array<ILinkedListNode>;//nodes: () => IterableIterator<ILinkedListNode>;
+    nodes: Array<ILinkedListNode>; //nodes: () => IterableIterator<ILinkedListNode>;
 }
 
 export class LinkedList<T> implements ILinkedList {

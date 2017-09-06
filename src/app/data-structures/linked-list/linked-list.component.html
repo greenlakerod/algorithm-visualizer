@@ -1,42 +1,48 @@
 <div class="component">
-    <div class="page-header">
-        <h1>Linked List</h1>
-    </div>
-    <form class="form-inline">
-        <div class="form-row">
-            <div class="form-group">
-                <label>Value:</label>
-                <input class="form-control" #node />
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default-outline" (click)="add(node.value); node.value='';">Add</button>
-                <button type="button" class="btn btn-default-outline" (click)="addLast(node.value); node.value='';">Add Last</button>
-                <button type="button" class="btn btn-default-outline" (click)="remove(node.value); node.value='';">Remove</button>
-            </div>
+    <div class="row">
+        <div class="page-header">
+            <h1>Linked List</h1>
         </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label>Index:</label>
-                <input class="form-control" #index />
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default-outline" (click)="add(node.value, index.value); node.value=''; index.value='';">Insert</button>
-                <button type="button" class="btn btn-default-outline" (click)="removeAt(index.value); node.value=''; index.value='';">Remove at Index</button>
-            </div>
+        <div class="col-md-4">
+            <form class="form-inline">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Value:</label>
+                            <input class="form-control" #node />
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default-outline" (click)="add(node.value); node.value='';">Add</button>
+                            <button type="button" class="btn btn-default-outline" (click)="addLast(node.value); node.value='';">Add Last</button>
+                            <button type="button" class="btn btn-default-outline" (click)="remove(node.value); node.value='';">Remove</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Index:</label>
+                            <input class="form-control" #index />
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default-outline" (click)="add(node.value, index.value); node.value=''; index.value='';">Insert</button>
+                            <button type="button" class="btn btn-default-outline" (click)="removeAt(index.value); node.value=''; index.value='';">Remove at Index</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default-outline" (click)="removeFirst(); node.value=''; index.value='';">Remove First</button>
+                            <button type="button" class="btn btn-default-outline" (click)="removeLast(); node.value=''; index.value='';">Remove Last</button>
+                            <button type="button" class="btn btn-default-outline" (click)="clear(); node.value=''; index.value='';">Clear</button>
+                            <button type="button" class="btn btn-default-outline" (click)="reverse(); node.value=''; index.value='';">Reverse</button>
+                        </div>
+                    </div>
+                </form>
         </div>
-        <div class="form-row">
-            <div class="form-group">
-                <button type="button" class="btn btn-default-outline" (click)="removeFirst(); node.value=''; index.value='';">Remove First</button>
-                <button type="button" class="btn btn-default-outline" (click)="removeLast(); node.value=''; index.value='';">Remove Last</button>
-                <button type="button" class="btn btn-default-outline" (click)="clear(); node.value=''; index.value='';">Clear</button>
-                <button type="button" class="btn btn-default-outline" (click)="reverse(); node.value=''; index.value='';">Reverse</button>
-            </div>
-        </div>
-    </form>
-    <div class="grid grid-pad">
-        <div *ngFor="let node of list.nodes" class="col-">
-            <div class="node">
-                <h4>{{node.value}}</h4>
+        <div class="col-md-8">
+            <div class="grid grid-pad">
+                <div *ngFor="let node of list.nodes" class="col-">
+                    <div class="node">
+                        <h4>{{node.value}}</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
