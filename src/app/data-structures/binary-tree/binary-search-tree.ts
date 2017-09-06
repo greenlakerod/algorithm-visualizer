@@ -82,6 +82,18 @@ export class BinarySearchTree<T> extends BinaryTree<T> {
     }
     public buildTree(order: "inorder" | "preorder" | "postorder", nodes: Array<T>, levelOrderNodes?: Array<T>): void {
         this.clear();
+
+        switch (order) {
+            case "inorder":
+                this._buildTreeInorder(nodes, levelOrderNodes);
+                break;
+            case "preorder":
+                this._buildTreePreorder(nodes);
+                break;
+            case "postorder":
+                this._buildTreePostorder(nodes);
+                break;
+        }
     }
 
     protected _addNode(newNode: BinaryTreeNode<T>, root: BinaryTreeNode<T>): void {

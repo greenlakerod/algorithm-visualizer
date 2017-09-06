@@ -1,62 +1,79 @@
-<div class="component">
+<div class="component row">
     <div class="page-header">
-        <h1>Binary Tree</h1>
+        <h2>Binary Tree</h2>
     </div>
-    <form class="form-inline">
-        <div class="form-row">
-            <div class="form-group">
+    <div class="col-md-3 form-inline" style="border-style: solid; border-width: 1px;">
+        <div class="row align-items-start">
+            <div class="col-md-3">
                 <label>Type:</label>
-                <select class="form-control" id="treetype" #treetype (change)="onTreeTypeChange($event.target.value)">
+            </div>
+            <div class="col-md-1">
+                <select class="form-control-sm input-block-level box-sizing: border-box" id="treetype" #treetype (change)="onTreeTypeChange($event.target.value)">
                     <option value="bst" selected>Binary Search Tree</option>
                     <option value="avl">AVL Tree</option>
                 </select>
-            </div>
-            <!-- <div class="form-group">
-                <select class="form-control" id="datatype" #datatype (change)="onDataTypeChange($event.target.value)">
+                <!-- <div class="form-group">
+                <select class="form-control-sm" id="datatype" #datatype (change)="onDataTypeChange($event.target.value)">
                     <option value="number" selected>Number</option>
                     <option value="string">String</option>
                 </select>
             </div> -->
+            </div>
         </div>
-        <div class="form-row">
-            <div class="form-group">
+        <div class="row align-items-start">
+            <div class="col-md-3">
                 <label>Value:</label>
-                <input class="form-control" type="text" id="item" #item />
             </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default-outline" (click)="add(item.value); item.value='';">Add</button>
-                <button type="button" class="btn btn-default-outline" (click)="remove(item.value); item.value='';">Remove</button>
-                <button type="button" class="btn btn-default-outline" (click)="clear();">Clear</button>
+            <div class="col-md-1">
+                <input class="form-control-sm input-block-level" type="text" id="item" #item />
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group">
+        <div class="row justify-content-end">
+            <div class="col-md-1">
+                &nbsp;
+            </div>
+            <div class="col-md-3 input-group">
+                <div>
+                    <button type="button" class="btn btn-default-outline btn-sm" (click)="add(item.value); item.value='';">Add</button>
+                    <button type="button" class="btn btn-default-outline btn-sm" (click)="remove(item.value); item.value='';">Remove</button>
+                    <button type="button" class="btn btn-default-outline btn-sm" (click)="clear();">Clear</button>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-start">
+            <div class="col-md-3">
                 <label>Traverse:</label>
-                <select class="form-control" #traversaltype (change)="onTraversalTypeChange($event.target.value)">
+            </div>
+            <div class="col-md-1">
+                <select class="form-control-sm" #traversaltype (change)="onTraversalTypeChange($event.target.value)">
                     <option value="inorder" selected>In Order</option>
                     <option value="preorder">Preorder</option>
                     <option value="postorder">Postorder</option>
                     <option value="levelorder">Level Order</option>
                 </select>
             </div>
-            <div class="form-group">
+        </div>
+        <div class="row align-items-start">
+            <div class="col-md-3">
                 <label>Recursive</label>
-                <input class="form-control" type="checkbox" checked="checked" (change)="onRecursiveTraversalChange($event.target.checked)" />
             </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default-outline" (click)="traverse()">Traverse</button>
+            <div class="col-md-1">
+                <input class="form-control-sm" type="checkbox" checked="checked" (change)="onRecursiveTraversalChange($event.target.checked)" />
             </div>
         </div>
-    </form>
-    <div class="grid grid-pad">
-        <div class="row">
-            <div class="col">
-                <div id="tree-view"></div>
-            </div>
-            <div class="col">
-                <div *ngIf="traversalOutput != undefined && traversalOutput != null" style="float: left; display: inline;">
-                    <div *ngFor="let item of traversalOutput" style="display: inline;">
-                        {{item}}
+        <button type="button" class="btn btn-default-outline btn-sm" (click)="traverse()">Traverse</button>
+    </div>
+    <div class="col-md-9">
+        <div class="grid grid-pad">
+            <div class="row">
+                <div class="col">
+                    <div id="tree-view"></div>
+                </div>
+                <div class="col">
+                    <div *ngIf="traversalOutput != undefined && traversalOutput != null" style="float: left; display: inline;">
+                        <div *ngFor="let item of traversalOutput" style="display: inline;">
+                            {{item}}
+                        </div>
                     </div>
                 </div>
             </div>
