@@ -1,69 +1,53 @@
 <div class="component row">
-    <div class="page-header">
+    <div class="page-header" style="padding-left: 15px;">
         <h2>Binary Tree</h2>
     </div>
-    <div class="col-md-3 form-inline" style="border-style: solid; border-width: 1px;">
-        <div class="row align-items-start">
-            <div class="col-md-3">
-                <label>Type:</label>
-            </div>
-            <div class="col-md-1">
-                <select class="form-control-sm input-block-level box-sizing: border-box" id="treetype" #treetype (change)="onTreeTypeChange($event.target.value)">
+    <div class="col-md-2 sidebar">
+        <ul class="nav nav-sidebar" style="margin-bottom: 10px;">
+            <li style="width: 100%;">
+                <select class="form-control-sm input-block-level box-sizing: border-box" style="width: 100%;" id="treetype" #treetype (change)="onTreeTypeChange($event.target.value)">
                     <option value="bst" selected>Binary Search Tree</option>
                     <option value="avl">AVL Tree</option>
                 </select>
-                <!-- <div class="form-group">
-                <select class="form-control-sm" id="datatype" #datatype (change)="onDataTypeChange($event.target.value)">
-                    <option value="number" selected>Number</option>
-                    <option value="string">String</option>
-                </select>
-            </div> -->
-            </div>
-        </div>
-        <div class="row align-items-start">
-            <div class="col-md-3">
-                <label>Value:</label>
-            </div>
-            <div class="col-md-1">
-                <input class="form-control-sm input-block-level" type="text" id="item" #item />
-            </div>
-        </div>
-        <div class="row justify-content-end">
-            <div class="col-md-1">
-                &nbsp;
-            </div>
-            <div class="col-md-3 input-group">
-                <div>
-                    <button type="button" class="btn btn-default-outline btn-sm" (click)="add(item.value); item.value='';">Add</button>
-                    <button type="button" class="btn btn-default-outline btn-sm" (click)="remove(item.value); item.value='';">Remove</button>
-                    <button type="button" class="btn btn-default-outline btn-sm" (click)="clear();">Clear</button>
+            </li>
+        </ul>
+        <ul class="nav nav-sidebar" style="margin-bottom: 10px;">
+            <li style="width: 100%;">
+                <div style="margin-bottom: 5px; width: 100%;">
+                    <input class="form-control-sm" style="width: 100%;" type="text" placeholder="Value..." id="item" #item />
                 </div>
-            </div>
-        </div>
-        <div class="row align-items-start">
-            <div class="col-md-3">
-                <label>Traverse:</label>
-            </div>
-            <div class="col-md-1">
-                <select class="form-control-sm" #traversaltype (change)="onTraversalTypeChange($event.target.value)">
-                    <option value="inorder" selected>In Order</option>
-                    <option value="preorder">Preorder</option>
-                    <option value="postorder">Postorder</option>
-                    <option value="levelorder">Level Order</option>
+                <div>
+                    <button type="button" class="btn btn-sm" (click)="add(item.value); item.value='';">Add</button>
+                    <button type="button" class="btn btn-sm" (click)="remove(item.value); item.value='';">Remove</button>
+                    <button type="button" class="btn btn-sm" (click)="clear();">Clear</button>
+                </div>
+            </li>
+        </ul>
+        <ul class="nav nav-sidebar" style="margin-bottom: 10px;">
+            <li style="width: 100%;">
+                <select class="form-control-sm" style="width: 100%;" #traversaltype (change)="onTraversalTypeChange($event.target.value)">
+                    <option value="" disabled selected hidden>Traversal Type...</option>
+                    <option value="inorder" selected>Traverse - In Order</option>
+                    <option value="preorder">Traverse - Preorder</option>
+                    <option value="postorder">Traverse - Postorder</option>
+                    <option value="levelorder">Traverse - Level Order</option>
                 </select>
-            </div>
-        </div>
-        <div class="row align-items-start">
+                <div style="margin-top: 10px;">
+                    <button type="button" class="btn btn-default-outline btn-sm" (click)="traverse()">Traverse</button>
+                </div>
+            </li>
+        </ul>
+        <!-- <div class="row align-items-start">
             <div class="col-md-3">
-                <label>Recursive</label>
+                Recursive
             </div>
             <div class="col-md-1">
                 <input class="form-control-sm" type="checkbox" checked="checked" (change)="onRecursiveTraversalChange($event.target.checked)" />
             </div>
         </div>
-        <button type="button" class="btn btn-default-outline btn-sm" (click)="traverse()">Traverse</button>
+        <button type="button" class="btn btn-default-outline btn-sm" style="margin-left: 75px;" (click)="traverse()">Traverse</button> -->
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10 col-md-offset-2">
         <div class="grid grid-pad">
             <div class="row">
                 <div class="col">
